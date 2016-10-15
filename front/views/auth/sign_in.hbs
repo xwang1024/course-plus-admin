@@ -1,0 +1,42 @@
+{{#block "vendor_js"}}
+{{/block}}
+
+<div class="block-center mt-xl wd-xl">
+  <div class="panel panel-dark panel-flat">
+    <div class="panel-heading text-center">
+      <h4>Course+</h4>
+    </div>
+    <div class="panel-body">
+      <div class="alert-container">
+        <p class="text-center pv">请登录</p>
+      </div>
+      <form class="mb-lg" role="form" id="sign-in-form">
+        <div class="form-group has-feedback">
+          <input autocomplete="off" class="form-control" placeholder="请输入用户名" required="" type="text" name="username">
+          <span class="fa fa-user form-control-feedback text-muted"></span>
+        </div>
+        <div class="form-group has-feedback">
+          <input class="form-control" id="exampleInputPassword1" placeholder= "请输入密码" required="" type="password" name="password">
+          <span class="fa fa-lock form-control-feedback text-muted"></span>
+        </div>
+        <div class="clearfix">
+          <!--<div class="checkbox c-checkbox pull-left mt0">
+            <label><input name="remember" type="checkbox" value="">
+            <span class="fa fa-check"></span>记住我</label>
+          </div>-->
+          <div class="pull-right">
+            <a class="text-muted" href="recover.html">忘记密码？</a>
+          </div>
+        </div>
+        <button class="btn btn-block btn-primary mt-lg" type="submit">登录</button>
+      </form>
+      <p class="pt-lg text-center">没有账号？</p>
+      <a class="btn btn-block btn-default" href="/signUp">注册</a>
+    </div>
+  </div>
+  <div class="p-lg text-center">
+    <span>&copy;</span> <span>2016</span> <span>-</span>
+    <span>Course+后台管控平台</span><br>
+    <span>南京一可米互联网科技有限公司</span>
+  </div>
+</div>

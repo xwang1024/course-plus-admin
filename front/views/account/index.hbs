@@ -1,0 +1,152 @@
+{{#block "vendor_js"}}
+ <script src="/js/single/account-index.js"></script> 
+<!--创建用户modal模板-->
+<script type="text/html" id='create-tpl'>
+  <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="createLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times;</button>
+        <h4 class="modal-title" id="createLabel">创建账号</h4>
+      </div>
+      <form id='account-form'>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>用户名</label>
+            <input type="text" name='username' placeholder="请输入用户名" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>密码</label>
+            <input type="text" name='password' placeholder="请输入密码" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>类型</label>
+            <select name="role" class="form-control" required>
+              <option value="admin">admin</option>
+              <option value="normal">normal</option>
+            </select>
+          </div>
+          <div class="form-group" required>
+            <label>是否激活</label>
+            <select name="isActive" class="form-control">
+              <option value="yes">yes</option>
+              <option value="no">no</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-green" name='submitBtn'>创建账号</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</script>
+
+<!--修改用户modal模板-->
+<script type="text/html" id='modify-tpl'>
+  <div class="modal fade" id="modify" tabindex="-1" role="dialog" aria-labelledby="modifyLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times;</button>
+        <h4 class="modal-title" id="modifyLabel">修改账号</h4>
+      </div>
+      <form id='account-form'>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>用户名</label>
+            <input type="text" name='username' placeholder="请输入用户名" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>密码</label>
+            <input type="text" name='password' placeholder="填写此处将强制重置密码" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>类型</label>
+            <select name="role" class="form-control" required>
+              <option value="admin">admin</option>
+              <option value="normal">normal</option>
+            </select>
+          </div>
+          <div class="form-group" required>
+            <label>是否激活</label>
+            <select name="isActive" class="form-control">
+              <option value="yes">yes</option>
+              <option value="no">no</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-warning" name='submitBtn'>提交修改</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</script>
+{{/block}}
+
+<script>console.log({{{json}}})</script>
+<div class="content-heading">
+  <div class="pull-right">
+    <button type="button" class="btn btn-sm btn-green" name='createBtn'>添加运营账号</button>
+  </div>
+  <ol class="breadcrumb">
+    <li>
+      <span>管理</span>
+    </li>
+    <li class="active">
+      <span>运营账号管理</span>
+    </li>
+  </ol>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default" data-auto-height='45'>
+      <div class="panel-body pt0">
+        <div class="row">
+          <div class="col-md-12" style="min-height: 300px;">
+            <table class='table tabel-striped table-hover'>
+              <thead>
+              <tr>
+                <th class="text-left">用户名</th>
+                <th class="text-center">类型</th>
+                <th class="text-center">是否激活</th>
+                <th class="text-center">注册时间</th>
+                <th class="text-right">操作</th>
+              </tr>
+              </thead>
+              <tbody>
+              {{#unless _DATA_.users}}
+                <tr><td colspan="5" class="text-muted text-center">その話もう聞き飽きたわ</td></tr>
+              {{else}}
+                {{#each _DATA_.users}}
+                  <tr data-id="{{{_id}}}">
+                    <td class="text-left" data-username="{{username}}">
+                      {{username}}
+                    </td>
+                    <td class="text-center" data-role="{{role}}">
+                      {{role}}
+                    </td>
+                    <td class="text-center" data-is-active="{{isActive}}">
+                      {{isActive}}
+                    </td>
+                    <td class="text-center">
+                      <small class="text-muted">{{date timeCreated "yyyy-MM-dd HH:mm:ss"}}</small>
+                    </td>
+                    <td class="text-right">
+                      <a href="javascript:;" name="modifyBtn">修改</a>
+                      <a href="javascript:;" name="deleteBtn">删除</a>
+                    </td>
+                  </tr>
+                {{/each}}
+              {{/unless}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

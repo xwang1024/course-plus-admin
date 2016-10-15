@@ -1,0 +1,37 @@
+<script src="/vendor/seajs/dist/sea.js"></script>
+<script src="/vendor/zepto/zepto.min.js"></script>
+<script src="/js/mobile/router.min.js"></script>
+{{{inject "vendor_js"}}}
+
+{{#unless _NO_AUTH_}}
+  {{#if _SIGN_.appid}}
+  <script>
+    var wechatConfig = {
+      debug: false,
+      appId: "{{{_SIGN_.appid}}}",
+      timestamp: {{{_SIGN_.timestamp}}},
+      nonceStr: "{{{_SIGN_.nonceStr}}}",
+      signature: "{{{_SIGN_.signature}}}",
+      jsApiList: ['getLocation', 'onMenuShareTimeline',
+                  'onMenuShareAppMessage', 'onMenuShareQQ',
+                  'onMenuShareWeibo', 'onMenuShareQZone']
+    }
+    seajs.config({
+      base: "/js/mobile",
+      alias: {
+        "wechat": "http://res.wx.qq.com/open/js/jweixin-1.0.0.js"
+      }
+    });
+    seajs.use("app");
+  </script>
+  {{else}}
+  <script>alert('无法连接微信接口，请刷新重试')</script>
+  {{/if}}
+{{else}}
+  <script>
+    seajs.config({
+      base: "/js/mobile"
+    });
+    seajs.use("app-no-auth");
+  </script>
+{{/unless}}

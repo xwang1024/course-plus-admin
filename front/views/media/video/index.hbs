@@ -1,0 +1,129 @@
+{{#block "vendor_js"}}
+<script type="text/javascript" src="/js/single/media-video.js"></script>
+{{> pagination }}
+
+<!--视频预览modal模板-->
+<script type="text/html" id='video-preview-tpl'>
+  <div class="modal fade" id="video-preview" tabindex="-1" role="dialog" aria-labelledby="videoPreviewLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times;</button>
+        <h4 class="modal-title" id="videoPreviewLabel">视频预览</h4>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <!--<button type="button" class="btn btn-warning pull-left" name='modifyVideoBtn'>修改</button>
+        <button type="button" class="btn btn-danger pull-left" name='deleteVideoBtn'>删除</button>-->
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</script>
+<!--修改视频modal模板-->
+<script type="text/html" id='video-modify-tpl'>
+  <div class="modal fade" id="video-modify" tabindex="-1" role="dialog" aria-labelledby="videoModifyLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times;</button>
+        <h4 class="modal-title" id="videoModifyLabel">修改视频素材</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label>视频名称</label>
+            <input type="text" name='title' placeholder="请输入视频名称" class="form-control", required>
+          </div>
+          <div class="form-group">
+            <label>视频简介</label>
+            <textarea type="text" name='description' placeholder="请输入视频简介" class="form-control", required, style='width:100%; height: 200px; resize: none;'></textarea>
+          </div>
+          <div class="form-group">
+            <label>视频标签</label>
+            <a href="javascript:;" class='create-tag-btn'>创建标签</a>
+            <input name="tags" class="tag-select" placeholder="输入素材标签">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" name='submitModifyBtn' data-dismiss="modal">修改</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+  </div>
+</script>
+{{/block}}
+
+<div class="content-heading">
+  <div class="pull-right">
+    <button type="button" class='btn btn-green btn-sm' onclick='location.href="/admin/media/video/upload"'>添加视频素材</button>
+  </div>
+  <ol class="breadcrumb">
+    <li>素材库
+    </li>
+    <li class="active">视频素材
+    </li>
+  </ol>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="input-group">
+          <span class="input-group-input">
+            <input name="searchTags" class="tag-select" placeholder="输入素材标签" value="{{_QUERY_.tags}}">
+          </span>
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button" name="filterBtn">筛选</button>
+          </span>
+        </div>
+      </div>
+      <div class="panel-body pt0">
+        {{#unless _DATA_.media}}
+        <div class="text-muted text-center">没有视频素材</div>
+        {{else}}
+        <table class='table tabel-striped table-hover'>
+          <thead>
+          <tr>
+            <th class="text-left">标题</th>
+            <!--<th class="text-center">长度</th>-->
+            <th class="text-center">标签</th>
+            <th class="text-right">操作</th>
+          </tr>
+          </thead>
+          <tbody>
+            {{#each _DATA_.media}}
+            <tr data-id="{{{_id}}}">
+              <td>
+                <button class='btn btn-primary btn-xs mr video-play-btn' data-is-local='{{isLocal}}' data-video-src='{{{url}}}' style='width: 23px; height: 23px;'>
+                  <em class='fa fa-play'></em>
+                </button>
+                <span title='{{desc}}' name='title'>{{title}}</span>
+              </td>
+              <!--<td class="text-center">1:15</td>-->
+              <td class="text-center" data-tags='{{join tags ";"}}'>
+                {{#each tags}}
+                <span class='label label-purple' style='font-size: 12px;'>{{this}}</span>
+                {{/each}}
+              </td>
+              <td class="text-right">
+                <a href='javascript:;' name='modifyVideoBtn' class='btn btn-link btn-xs'>修改</a>
+                <a href='javascript:;' name='deleteVideoBtn' class='btn btn-link btn-xs'>删除</a>
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+        <div class="row pt-lg">
+          <div class="col-md-12 text-center pagination-sm" id='pagination-container'></div>
+          <div class="col-md-12 text-center">
+            <small class="text-muted">检索到{{_DATA_.total}}条，共{{_DATA_.pageCnt}}页</small>
+          </div>
+        </div>
+        {{/unless}}
+      </div>
+    </div>
+  </div>
+</div>

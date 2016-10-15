@@ -1,0 +1,177 @@
+{{#block "vendor_css"}}
+{{/block}}
+
+{{#block "vendor_js"}}
+<script type="text/javascript" src="/js/single/media-question.js"></script>
+{{> pagination }}
+
+<!--添加单选问题modal模板-->
+<script type="text/html" id='add-radio-tpl'>
+  <div class="modal fade" id="add-radio" tabindex="-1" role="dialog" aria-labelledby="questionUploadLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times;</button>
+        <h4 class="modal-title" id="questionUploadLabel">添加单选问题素材</h4>
+      </div>
+      <form id='question-form'>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>问题标题</label>
+            <input type="text" name='title' placeholder="请输入问题标题" class="form-control", required>
+          </div>
+          <div class="form-group">
+            <label>问题选项（选项之间用“;”隔开）</label>
+            <textarea type="text" name='options' placeholder="请输入问题选项（用“;”隔开）" class="form-control", style='width:100%; height: 100px; resize: none;'></textarea>
+          </div>
+          <div class="form-group">
+            <label>是否显示答案统计</label>
+            <select name="allowSeePercent" class="form-control", required>
+              <option value="false">不显示</option>
+              <option value="true">显示</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>素材标签</label>
+            <a href="javascript:;" class='create-tag-btn'>创建标签</a>
+            <input name='tags' class="tag-select" style="width: 100%">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success" name='submitBtn'>添加</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</script>
+<!--修改单选问题modal模板-->
+<script type="text/html" id='question-modify-tpl'>
+  <div class="modal fade" id="question-modify" tabindex="-1" role="dialog" aria-labelledby="questionModifyLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times;</button>
+        <h4 class="modal-title" id="questionModifyLabel">修改单选问题素材</h4>
+      </div>
+      <form id='question-form'>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>问题标题</label>
+            <input type="text" name='title' placeholder="请输入问题标题" class="form-control", required>
+          </div>
+          <div class="form-group">
+            <label>问题选项（选项之间用“;”隔开）</label>
+            <textarea type="text" name='options' placeholder="请输入问题选项（用“;”隔开）" class="form-control", style='width:100%; height: 100px; resize: none;'></textarea>
+          </div>
+          <div class="form-group">
+            <label>是否显示答案统计</label>
+            <select name="allowSeePercent" class="form-control", required>
+              <option value="false">不显示</option>
+              <option value="true">显示</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>素材标签</label>
+            <a href="javascript:;" class='create-tag-btn'>创建标签</a>
+            <input name='tags' class="tag-select" style="width: 100%">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-warning" name='submitBtn'>修改</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</script>
+{{/block}}
+
+<script>console.log({{{json}}})</script>
+<div class="content-heading">
+  <div class="pull-right">
+    <button type="button" class="btn btn-sm btn-green" name='addRadioBtn'>添加问题素材</button>
+    <!--<div class="btn-group mb-sm">
+      <button type="button" data-toggle="dropdown" class="btn btn-sm dropdown-toggle btn-green">添加问题素材
+        <span class="ml caret" style='margin-top: -2px;'></span>
+      </button>
+      <ul role="menu" class="dropdown-menu">
+        <li><a href="javascript:;" name='addRadioBtn'>单选问题</a>
+        </li>
+      </ul>
+    </div>-->
+  </div>
+  <ol class="breadcrumb">
+    <li>素材库
+    </li>
+    <li class="active">问题素材
+    </li>
+  </ol>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="input-group">
+          <span class="input-group-input">
+            <input name="searchTags" class="tag-select" placeholder="输入素材标签" value="{{_QUERY_.tags}}">
+          </span>
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button" name="filterBtn">筛选</button>
+          </span>
+        </div>
+      </div>
+      <div class="panel-body pt0">
+        {{#unless _DATA_.questions}}
+        <div class="text-muted text-center">当前没有问题素材</div>
+        {{else}}
+        <table class='table tabel-striped table-hover'>
+          <thead>
+          <tr>
+            <th class="text-left">标题</th>
+            <th class="text-left">类型</th>
+            <th class="text-left">统计反馈</th>
+            <th class="text-left">选项</th>
+            <th class="text-left">标签</th>
+            <th class="text-right">操作</th>
+          </tr>
+          </thead>
+          <tbody>
+            {{#each _DATA_.questions}}
+            <tr data-id="{{{_id}}}">
+              <td>
+                <span name='title'>{{title}}</span>
+              </td>
+              <td class="text-left">{{type}}</td>
+              <td class="text-left" data-allow-see-percent="{{allowSeePercent}}">{{#if allowSeePercent}}显示{{else}}不显示{{/if}}</td>
+              <td class="text-left" data-options='{{#each options}}{{content}};{{/each}}'>
+                <small>
+                  {{#each options}}
+                  {{no}}. {{content}}<br/>
+                  {{/each}}
+                </small>
+              </td>
+              <td class="text-left" data-tags='{{join tags ";"}}'>
+                {{#each tags}}
+                <span class='label label-purple' style='font-size: 12px;'>{{this}}</span>
+                {{/each}}
+              </td>
+              <td class="text-right">
+                <a href='javascript:;' name='modifyQuestionBtn' class='btn btn-link btn-xs'>修改</a>
+                <a href='javascript:;' name='deleteQuestionBtn' class='btn btn-link btn-xs'>删除</a>
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+        <div class="row pt-lg">
+          <div class="col-md-12 text-center pagination-sm" id='pagination-container'></div>
+          <div class="col-md-12 text-center">
+            <small class="text-muted">检索到{{_DATA_.total}}条，共{{_DATA_.pageCnt}}页</small>
+          </div>
+        </div>
+        {{/unless}}
+      </div>
+    </div>
+  </div>
+</div>

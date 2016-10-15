@@ -1,0 +1,184 @@
+{{#block "vendor_js"}}
+<script type="text/javascript" charset="utf-8" src="/editor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/editor/ueditor.all.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="/editor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="/editor/third-party/webuploader/webuploader.js"></script>
+<script src="/js/single/media-article-edit.js"></script>
+<!--editor内容-->
+<script type="text/html" id='init-content'>
+{{{_DATA_.content}}}
+</script>
+<!--视频预览modal模板-->
+<script type="text/html" id='video-preview-tpl'>
+  <div class="modal fade" id="video-preview" tabindex="-1" role="dialog" aria-labelledby="videoPreviewLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times;</button>
+        <h4 class="modal-title" id="videoPreviewLabel">视频预览</h4>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <!--<button type="button" class="btn btn-warning pull-left" name='modifyVideoBtn'>修改</button>
+        <button type="button" class="btn btn-danger pull-left" name='deleteVideoBtn'>删除</button>-->
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</script>
+<!-- Modal -->
+<div class="modal fade" id="paste-upload-modal" tabindex="-1" role="dialog" aria-labelledby="paste-upload-modal-label">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="paste-upload-modal-label">上传图片到素材库</h4>
+      </div>
+      <div class="modal-body" style="height: 250px">
+        <div class="col-md-4" style="height: auto">
+          <img id="temp-img" src="" style="margin: auto; max-height: 220px; height: auto; width: 100%; background-color: darkgray"/>
+        </div>
+        <div class="col-md-8" style="height: auto">
+          <form>
+            <div class="form-group">
+              <label for="img-name">图片名称</label>
+              <input type="text" class="form-control" id="img-name">
+            </div>
+            <div class="form-group">
+              <label for="img-desc">图片简介</label>
+              <input type="text" class="form-control" id="img-desc">
+            </div>
+            <div class="form-group">
+              <label for="img-tags">图片标签</label>
+              <a href="javascript:;" class='create-tag-btn'>创建标签</a>
+              <input type="text" class="tag-select" id="img-tags">
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel-button">取消</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="upload-button">上传</button>
+      </div>
+    </div>
+  </div>
+</div>
+{{/block}}
+<script>console.log({{{json}}})</script>
+<div class="content-heading">
+  <ol class="breadcrumb">
+    <li>
+      <span>素材库</span>
+    </li>
+    <li class="active">
+      <a href="/admin/media/article">图文素材</a>
+    </li>
+    <li class="active">
+      <span>修改图文素材</span>
+    </li>
+  </ol>
+</div>
+<input type="hidden" name='id' value='{{_DATA_._id}}'>
+<div class="row">
+  <div class="col-md-8">
+    <div class="panel panel-default" id='edit-panel'>
+      <form id='article-modify-form'>
+        <div class="panel-heading">图文素材信息
+          <section class='pull-right'>
+            <!--<button type="button" name="previewBtn" class='btn btn-default btn-xs'>预览</button>-->
+            <button type="submit" name="submitBtn" class='btn btn-warning btn-xs'>提交修改</button>
+          </section>
+        </div>
+        <div class="panel-body pt0">
+          <div class="form-group">
+            <label>标题</label>
+            <input type="text" name='title' placeholder="请输入文章标题" class="form-control" required value='{{_DATA_.title}}'>
+          </div>
+          <div class="form-group">
+            <label>作者</label>
+            <input type="text" name='author' placeholder="请输入作者" class="form-control" required value='{{_DATA_.author}}'>
+          </div>
+          <div class="form-group"><label>正文</label><script id="editor" type="text/plain" style="width:100%; height:100%;"></script></div>
+          <div class="form-group">
+            <label>问题</label>
+            <span class="pull-right text-muted">请在右侧问题素材库中选择</span>
+            <div id="question-container">
+              {{#each _DATA_.questions}}
+              <div class="bg-gray-lighter ml p" data-question-id="{{_id}}">
+                <a href="javascript:;" class="pull-right" onclick="$(this).parent().remove()">删除问题</a>            
+                <h4>{{title}}</h4>
+                <fieldset class="pb0" style="margin-left: 35px;">
+                  {{#each options}}
+                  <label class="checkbox c-checkbox c-checkbox-rounded">
+                    <input type="radio">
+                    <span class="fa fa-check"></span>{{no}}. {{content}}
+                  </label>
+                  {{/each}}
+                </fieldset>
+              </div>
+              {{/each}}
+            </div>
+          </div>
+          <div class="form-group">
+            <label>来源</label>
+            <input type="text" name='from' placeholder="请输入文章来源（可选）" class="form-control" value='{{_DATA_.from}}'>
+          </div>
+          <div class="form-group">
+            <label>封面</label>
+            <span class='pull-right text-muted'>请在右侧图片素材库中选择</span>
+            <a href='javascript:;' class='pull-right mr' name='removeCover'>删除封面</a>
+            <div id="cover-container">
+              <img src="{{_DATA_.cover._url}}" alt=""  style="max-width: 30%; max-height=150px;"/>
+              <input type="hidden" name='cover' value='{{_DATA_.cover._id}}'>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>摘要</label>
+            <textarea type="text" name='description' placeholder="请输入文章摘要" class="form-control", required, style='width:100%; height: 100px; resize: none;'>{{_DATA_.description}}</textarea>
+          </div>
+          <div class="form-group">
+            <label>标签</label>
+            <a href="javascript:;" class='create-tag-btn'>创建标签</a>
+            <input name="tags" class="tag-select" style="width: 100%" value='{{join _DATA_.tags ";"}}'>
+          </div>
+        </div>
+      </form>
+        
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="panel panel-default" id='media-panel'>
+      <div class="panel-heading">
+        <div class="input-group">
+          <span class="input-group-input">
+            <input name="searchTags" class="tag-select" placeholder="输入素材标签" value="{{_QUERY_.tags}}">
+          </span>
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button" name="filterBtn">筛选</button>
+          </span>
+        </div>
+      </div>
+      <div class="panel-body pt0">
+        <div>
+          <ul class="nav nav-tabs">
+            <li name='images' class="active"><a href="javascript:;">图片</a></li>
+            <li name='audio'><a href="javascript:;">音频</a></li>
+            <li name='video'><a href="javascript:;">视频</a></li>
+            <li name='question'><a href="javascript:;">问题</a></li>
+          </ul>
+          <div class="tab-content"  data-auto-height='30'>
+            <div role="tabpanel" class="tab-pane active" id="pictures">
+              <div class="media-list">
+                
+              </div>
+              <div class="col-md-12 text-center pt-lg" id='pagination-container'></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

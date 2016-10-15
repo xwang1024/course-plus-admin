@@ -1,0 +1,76 @@
+{{#block "vendor_css"}}
+{{/block}}
+
+{{#block "vendor_js"}}
+<script src="/vendor/handlebars/handlebars.min.js"></script>
+<script src="/js/single/media-video-upload.js"></script>
+{{/block}}
+
+<div class="content-heading">
+  <ol class="breadcrumb">
+    <li><span>素材库</span>
+    </li>
+    <li><a href='/admin/media/video'>视频素材</a>
+    </li>
+    <li class="active"><span>添加视频素材</span>
+    </li>
+  </ol>
+</div>
+<div class="row" id='choose-type'>
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">视频上传（小于30分钟的视频，支持格式少）</div>
+      <div class="panel-body">
+        <input type="file" name="file" class='pull-left' accept="video/*">
+        <button type="button" name="uploadPreviewBtn" class='btn btn-primary btn-xs pull-right'>确定</button>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">视频外链（请于各视频网站上传视频后，将分享用的“通用代码”粘贴至此）</div>
+      <div class="panel-body">
+        <input type="text" name="embedCode" class='pull-left', style='width: 80%'>
+        <button type="button" name="embedPreviewBtn" class='btn btn-primary btn-xs pull-right'>确定</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" id="preview" style='display: none;'>
+  <div class="col-md-7">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        视频预览
+      </div>
+      <div class="panel-body video-player-container" style='overflow-x: auto'>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-5">
+    <div class="panel panel-default">
+      <form id='video-upload-form'>
+        <div class="panel-heading">
+          视频信息
+          <section class='pull-right'>
+            <button type="button" name="cancelBtn" class='btn btn-default btn-xs'>返回上一步</button>
+            <button type="submit" name="submitBtn" class='btn btn-success btn-xs'>增加素材</button>
+          </section>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <label>视频名称</label>
+            <input type="text" name='title' placeholder="请输入视频名称" class="form-control", required>
+          </div>
+          <div class="form-group">
+            <label>视频简介</label>
+            <textarea type="text" name='description' placeholder="请输入视频简介" class="form-control", required, style='width:100%; height: 200px; resize: none;'></textarea>
+          </div>
+          <div class="form-group">
+            <label>视频标签</label>
+            <a href="javascript:;" class='create-tag-btn'>创建标签</a>
+            <input name="tags" class="tag-select" style="width: 100%">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

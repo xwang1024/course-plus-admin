@@ -1,0 +1,32 @@
+.audio-player {
+  width: 300px;
+  height: 31px;
+  border-radius: 3px;
+  background-color: #333333;
+  .play-controller {
+    border: 0;
+    background-color: transparent;
+    border-radius: 3px 0 0 3px;
+    height: 31px;
+    width: 42px;
+    color: #999999;
+    font-size: 18px;
+    float: left;
+    &:hover {
+      background-color: #555555;
+    }
+    &:active {
+      background-color: #666666;
+    }
+  }
+  .play-info {
+    padding: 0 6px;
+    font-size: 12px;
+    float: left;
+    width: 250px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    line-height: 31px;
+  }
+}

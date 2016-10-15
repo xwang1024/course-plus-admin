@@ -1,0 +1,48 @@
+{{#block "vendor_js"}}
+<script type="text/javascript" src="/js/single/auth.js"></script>
+{{/block}}
+
+<div class="block-center mt-xl wd-xl">
+  <div class="panel panel-dark panel-flat">
+    <div class="panel-heading text-center">
+      <h4>Course+</h4>
+    </div>
+    <div class="panel-body">
+      <div class="alert-container">
+        <p class="text-center pv">运营账号注册</p>
+      </div>
+      <form class="mb-lg" role="form" id="sign-up-form">
+        <div class="form-group has-feedback">
+          <label class="text-muted" for="signUpInputUsername">用户名</label>
+          <input autocomplete="off" class="form-control" id="signUpInputUsername" placeholder="请输入用户名" required="" type="text" name="username">
+          <span class="fa fa-user form-control-feedback text-muted"></span>
+        </div>
+        <div class="form-group has-feedback">
+          <label class="text-muted" for="signUpInputPassword1">密码</label> <input autocomplete="off"
+          class="form-control" id="signUpInputPassword1" placeholder="请输入密码" required="" type="password" name="password">
+          <span class="fa fa-lock form-control-feedback text-muted"></span>
+        </div>
+        <div class="form-group has-feedback">
+          <label class="text-muted" for="signUpInputRePassword1">密码确认</label>
+          <input autocomplete="off" class="form-control" data-parsley-equalto="#signUpInputPassword1" id="signUpInputRePassword1" 
+          placeholder="请再次输入密码" required="" type="password" name="password1">
+          <span class="fa fa-lock form-control-feedback text-muted"></span>
+        </div>
+        <!--<div class="clearfix">
+          <div class="checkbox c-checkbox pull-left mt0">
+            <label><input name="agreed" required="" type="checkbox" value="">
+            <span class="fa fa-check"></span>我同意 <a href="#">Course+运营管理规范</a></label>
+          </div>
+        </div>-->
+        <button class="btn btn-block btn-primary mt-lg" type="submit">注册</button>
+      </form>
+      <p class="pt-lg text-center">已有账号？</p><a class=
+      "btn btn-block btn-default" href="/admin/signIn">登录</a>
+    </div>
+  </div>
+  <div class="p-lg text-center">
+    <span>&copy;</span> <span>2016</span> <span>-</span>
+    <span>Course+后台管控平台</span><br>
+    <span>南京一可米互联网科技有限公司</span>
+  </div>
+</div>

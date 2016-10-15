@@ -1,0 +1,41 @@
+<script>
+$('#pagination-container').twbsPagination({
+    first: '首页',
+    prev: '上一页',
+    next: '下一页',
+    last: '尾页',
+    {{#if _DATA_.pageCnt}}
+    totalPages: {{_DATA_.pageCnt}},
+    {{else}}
+    totalPages: 1,
+    {{/if}}
+    visiblePages: 3,
+    {{#if _QUERY_.page}}
+    startPage: {{_QUERY_.page}},
+    {{/if}}
+    onPageClick: function (event, page) {
+      var search = location.search;
+      var map = {};
+      if(search) {
+        search = search.slice(1).split('&');
+        for(var i in search){
+          var k = search[i].split('=')[0];
+          var v = search[i].split('=')[1];
+          map[k] = v;
+        }
+      }
+      if(!map['page'] && page==1) return;
+      if(map['page'] == page+'') return;
+      map['page'] = page;
+      var newSearch = [];
+      for(var k in map) {
+        newSearch.push(encodeURIComponent(k)+'='+encodeURIComponent(map[k]));
+      }
+      if(newSearch.length > 0) {
+        location.search = '?' + newSearch.join('&');
+      } else {
+        location.search = "";
+      }
+    }
+  });
+</script>
