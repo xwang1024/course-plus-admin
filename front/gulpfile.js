@@ -38,12 +38,10 @@ var source = {
             paths.scripts + 'modules/*.js',
             paths.scripts + 'custom/**/*.js'
         ],
-        single: paths.scripts + 'single/*.js',
-        mobile: [paths.scripts + 'mobile/*.js', paths.scripts + 'mobile/*/*.js']
+        single: paths.scripts + 'single/*.js'
     },
     styles: {
         app: [paths.styles + '*.*'],
-        mobile: paths.styles + 'mobile/*.*',
         themes: [paths.styles + 'themes/*', ignored_files],
         watch: [paths.styles + '**/*', '!' + paths.styles + 'themes/*']
     },
@@ -57,12 +55,10 @@ var build = {
             main: 'app.js',
             dir: paths.app + 'js'
         },
-        single: paths.app + 'js/single',
-        mobile: paths.app + 'js/mobile'
+        single: paths.app + 'js/single'
     },
     styles: {
-        app: paths.app + 'css',
-        mobile: paths.app + 'css/mobile'
+        app: paths.app + 'css'
     }
 };
 
@@ -155,16 +151,6 @@ gulp.task('scripts:single', function() {
 
 });
 
-gulp.task('scripts:mobile', function() {
-
-    return gulp.src(source.scripts.mobile)
-      .pipe(gulp.dest(build.scripts.mobile))
-      .pipe(reload({
-          stream: true
-      }));
-
-});
-
 // APP LESS
 gulp.task('styles:app', function() {
     log('Building application styles..');
@@ -178,20 +164,6 @@ gulp.task('styles:app', function() {
         .pipe(reload({
             stream: true
         }));
-});
-
-gulp.task('styles:mobile', function() {
-    log('Building application styles..');
-    return gulp.src(source.styles.mobile)
-      .pipe($.if(useSourceMaps, $.sourcemaps.init()))
-      .pipe($.less())
-      .on("error", handleError)
-      .pipe($.if(isProduction, $.cssnano(cssnanoOpts)))
-      .pipe($.if(useSourceMaps, $.sourcemaps.write()))
-      .pipe(gulp.dest(build.styles.mobile))
-      .pipe(reload({
-          stream: true
-      }));
 });
 
 // LESS THEMES
@@ -216,10 +188,8 @@ gulp.task('watch', function() {
 
     gulp.watch(source.scripts.app, ['scripts:app']);
     gulp.watch(source.scripts.single, ['scripts:single']);
-    gulp.watch(source.scripts.mobile, ['scripts:mobile']);
     gulp.watch(source.styles.watch, ['styles:app']);
     gulp.watch(source.styles.themes, ['styles:themes']);
-    gulp.watch(source.styles.mobile, ['styles:mobile']);
     gulp.watch(source.hbs.source, ['hbs:change']);
 
 });
@@ -287,9 +257,7 @@ gulp.task('default', gulpsync.sync([
 gulp.task('assets', [
     'scripts:app',
     'scripts:single',
-    'scripts:mobile',
     'styles:app',
-    'styles:mobile',
     'styles:themes'
 ]);
 
