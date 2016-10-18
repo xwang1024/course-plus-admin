@@ -19,6 +19,7 @@ var config = require('./lib/config');
 var app = express();
 app.config = config;
 var sequelize = new Sequelize(app.config.mysql.url);
+app.db = sequelize;
 
 // view engine setup
 app.set('views', __dirname + '\\front\\views');
