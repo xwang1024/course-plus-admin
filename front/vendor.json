@@ -1,13 +1,5 @@
 [
   "bower_components/echarts/dist/echarts.min.js",
-  
-  "bower_components/codemirror/lib/codemirror.css",
-  "bower_components/codemirror/lib/codemirror.js",
-  "bower_components/codemirror/mode/javascript/javascript.js",
-  "bower_components/phaser/build/phaser.min.js",
-  "bower_components/phaser/build/phaser.map",
-  "bower_components/seajs/dist/sea.js",
-  "bower_components/shake.js/shake.js",
   "bower_components/modernizr/modernizr.custom.js",
   "bower_components/jquery/dist/jquery.js",
   "bower_components/bootstrap/dist/js/bootstrap.js",
@@ -19,7 +11,6 @@
   "bower_components/fontawesome/css/font-awesome.min.css",
   "bower_components/fontawesome/fonts/*",
   "bower_components/animate.css/animate.min.css",
-  "bower_components/jquery-localize-i18n/dist/jquery.localize.js",
   "bower_components/simple-line-icons/css/simple-line-icons.css",
   "bower_components/simple-line-icons/fonts/*",
   "bower_components/select2/dist/css/select2.css",
@@ -31,10 +22,6 @@
 
   "bower_components/sweetalert/dist/sweetalert.css",
   "bower_components/sweetalert/dist/sweetalert.min.js",
-
-  "bower_components/weui/dist/style/weui.min.css",
-  "bower_components/weui/dist/example/images/*",
-  "bower_components/zepto/zepto.min.js",
   "bower_components/twbs-pagination/jquery.twbsPagination.min.js",
 
   "bower_components/selectize/dist/js/standalone/selectize.min.js",
