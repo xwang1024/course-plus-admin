@@ -45,6 +45,11 @@
     "bower_components/sweetalert/dist/sweetalert.min.js",
     "bower_components/twbs-pagination/jquery.twbsPagination.min.js",
     "bower_components/selectize/dist/js/standalone/selectize.min.js",
-    "bower_components/selectize/dist/css/selectize.default.css"
+    "bower_components/cropper/dist/cropper.min.js",
+    "bower_components/cropper/dist/cropper.min.css",
+    "bower_components/blueimp-file-upload/css/jquery.fileupload.css",
+    "bower_components/plupload/js/*",
+    "bower_components/qiniu/dist/qiniu.min.js"
+
   ]
 }

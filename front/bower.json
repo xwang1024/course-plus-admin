@@ -16,7 +16,7 @@
     "modernizr": "https://modernizr.com/download?backgroundsize-bgpositionshorthand-bgpositionxy-bgrepeatspace_bgrepeatround-bgsizecover-borderradius-cssanimations-csscalc-csstransforms-csstransforms3d-csstransitions-flexboxtweener-fontface-inlinesvg-localstorage-multiplebgs-preserve3d-sessionstorage-smil-svgclippaths-svgfilters-svgforeignobject-todataurljpeg_todataurlpng_todataurlwebp-setclasses&q=background.zip",
     "animo.js": "ThrivingKings/animo.js#1.0.3",
     "whirl": "1.0.0",
-    "blueimp-file-upload": "^9.12.5",
+    "blueimp-file-upload": "^9.12.6",
     "jquery-ui": "^1.11.4",
     "select2": "4.0.1",
     "select2-bootstrap-theme": "0.1.0-beta.4",
@@ -25,6 +25,8 @@
     "twbs-pagination": "^1.3.1",
     "selectize": "^0.12.1",
     "codemirror": "^5.18.2",
-    "echarts": "^3.2.3"
+    "echarts": "^3.2.3",
+    "cropper": "^2.3.4",
+    "qiniu": "^1.0.17"
   }
 }

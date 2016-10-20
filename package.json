@@ -21,6 +21,7 @@
     "node-validator": "^0.1.23",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
+    "qiniu": "^6.1.13",
     "sequelize": "^3.24.3",
     "serve-favicon": "~2.3.0"
   }

@@ -24,5 +24,9 @@
     'tablet':                 768,
     'mobile':                 480
   };
+
+  window.QiniuConfig = {
+    'domain': 'ofcmexmic.bkt.clouddn.com'
+  };
 })(window, document, window.jQuery);
 
