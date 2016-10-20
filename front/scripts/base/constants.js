@@ -1,9 +1,4 @@
-// GLOBAL CONSTANTS
-// ----------------------------------- 
-
-
 (function(window, document, $, undefined){
-
   window.APP_COLORS = {
     'primary':                '#5d9cec',
     'success':                '#27c24c',
@@ -29,6 +24,5 @@
     'tablet':                 768,
     'mobile':                 480
   };
-
 })(window, document, window.jQuery);
 

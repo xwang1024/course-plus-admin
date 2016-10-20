@@ -10,183 +10,23 @@
   </ol>
 </div>
 
-<p class="lead bb pb-sm">公众号概览</p>
+<p class="lead bb pb-sm">正在开发...</p>
 <div class="row">
-
-  <!--关注人数-->
-  <div class="col-lg-3 col-md-6 col-sm-12">
-    <div class="panel widget bg-primary">
-        <div class="row row-table">
-          <div class="col-xs-4 text-center bg-primary-dark pv-lg">
-            <em class="icon-people fa-3x"></em>
-          </div>
-          <div class="col-xs-8 pv-lg">
-            <div class="h2 mt0">{{_DATA_.watchCnt}}
-              <small>人</small>
-            </div>
-            <div class="text-uppercase">关注</div>
-          </div>
-        </div>
-    </div>
-  </div>
-
-  <!--推送消息数量-->
-  <div class="col-lg-3 col-md-6 col-sm-12">
-    <div class="panel widget bg-green">
-      <div class="row row-table">
-        <div class="col-xs-4 text-center bg-green-dark pv-lg">
-          <em class="icon-speech fa-3x"></em>
-        </div>
-        <div class="col-xs-8 pv-lg">
-          <div class="h2 mt0">{{_DATA_.groupSendCnt}}
-            <small>次</small>
-          </div>
-          <div class="text-uppercase">消息推送</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!--随身测次数-->
-  <div class="col-lg-3 col-md-6 col-sm-12">
-    <div class="panel widget bg-purple">
-        <div class="row row-table">
-          <div class="col-xs-4 text-center bg-purple-dark pv-lg">
-              <em class="icon-docs fa-3x"></em>
-          </div>
-          <div class="col-xs-8 pv-lg">
-              <div class="h2 mt0">{{_DATA_.scaleAnswerCnt}}
-                <small>次</small>
-              </div>
-              <div class="text-uppercase">随身测</div>
-          </div>
-        </div>
-    </div>
-  </div>
-
   <!--日期-->
   <div class="col-lg-3 col-md-6 col-sm-12">
     <div class="panel widget" data-js-comp="component/index/clock">
       <div class="row row-table">
         <div class="col-xs-4 text-center bg-green pv-lg">
-          <div data-now="" class="text-sm" name='month'>七月</div>
+          <div data-now="" class="text-sm" name='month'>--</div>
           <br>
-          <div data-now="" class="h2 mt0" name='date'>22</div>
+          <div data-now="" class="h2 mt0" name='date'>--</div>
         </div>
         <div class="col-xs-8 pv-lg">
-          <div data-now="" class="text-uppercase" name='day'>星期五</div>
+          <div data-now="" class="text-uppercase" name='day'>---</div>
           <br>
-          <div data-now="" class="h2 mt0" name='time'>17:38:00</div>
+          <div data-now="" class="h2 mt0" name='time'>--:--:--</div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
-<p class="lead bb pb-sm">素材统计</p>
-<div class="row">
-  <!--图文素材-->
-  <div class="col-lg-3 col-md-6 col-sm-12">
-    <div class="panel widget bg-gray">
-      <div class="row row-table">
-        <div class="col-xs-4 text-center bg-gray-dark pv-lg">
-          <em class="icon-book-open fa-3x"></em>
-        </div>
-        <div class="col-xs-8 pv-lg">
-          <div class="h2 mt0">{{_DATA_.articleCnt}}
-            <small>条</small>
-          </div>
-          <div class="text-uppercase">图文素材</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!--量表-->
-  <div class="col-lg-3 col-md-6 col-sm-12">
-    <div class="panel widget bg-gray">
-      <div class="row row-table">
-        <div class="col-xs-4 text-center bg-gray-dark pv-lg">
-            <em class="icon-docs fa-3x"></em>
-        </div>
-        <div class="col-xs-8 pv-lg">
-          <div class="h2 mt0">{{_DATA_.scaleCnt}}
-            <small>张</small>
-          </div>
-          <div class="text-uppercase">量表</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <!--图片素材-->
-  <div class="col-lg-3 col-sm-6">
-    <div class="panel widget bg-gray">
-      <div class="row row-table">
-        <div class="col-xs-4 text-center bg-gray-dark pv-lg">
-          <em class="icon-picture fa-3x"></em>
-        </div>
-        <div class="col-xs-8 pv-lg">
-          <div class="h2 mt0">{{_DATA_.imageCnt}}
-            <small>张</small>
-          </div>
-          <div class="text-uppercase">图片素材</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!--音频素材-->
-  <div class="col-lg-3 col-sm-6">
-    <div class="panel widget bg-gray">
-      <div class="row row-table">
-        <div class="col-xs-4 text-center bg-gray-dark pv-lg">
-          <em class="icon-microphone fa-3x"></em>
-        </div>
-        <div class="col-xs-8 pv-lg">
-          <div class="h2 mt0">{{_DATA_.audioCnt}}
-            <small>个</small>
-          </div>
-          <div class="text-uppercase">音频素材</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!--视频素材-->
-  <div class="col-lg-3 col-sm-6">
-    <div class="panel widget bg-gray">
-      <div class="row row-table">
-        <div class="col-xs-4 text-center bg-gray-dark pv-lg">
-            <em class="icon-camrecorder fa-3x"></em>
-        </div>
-        <div class="col-xs-8 pv-lg">
-          <div class="h2 mt0">{{_DATA_.videoCnt}}
-            <small>个</small>
-          </div>
-          <div class="text-uppercase">视频素材</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!--问题素材-->
-  <div class="col-lg-3 col-sm-6">
-    <div class="panel widget bg-gray">
-      <div class="row row-table">
-        <div class="col-xs-4 text-center bg-gray-dark pv-lg">
-            <em class="icon-question fa-3x"></em>
-        </div>
-        <div class="col-xs-8 pv-lg">
-          <div class="h2 mt0">{{_DATA_.questionCnt}}
-            <small>条</small>
-          </div>
-          <div class="text-uppercase">问题素材</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  
 </div>

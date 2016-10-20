@@ -1,9 +1,6 @@
-// SIDEBAR
-// ----------------------------------- 
+'use strict';
 
-
-(function(window, document, $, undefined){
-
+(function(window, document, $, module, exports, require){
   var $win;
   var $html;
   var $body;
@@ -172,5 +169,4 @@
   function useAsideHover() {
     return $body.hasClass('aside-hover');
   }
-
-})(window, document, window.jQuery);
+})(window, document, window['jQuery'], module, exports, require);

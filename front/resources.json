@@ -1,7 +1,7 @@
 {
   "script": {
     "base.js": [
-      "scripts/base/require.js"
+      "scripts/base/*.js"
     ],
     "app.js": [
       "scripts/framework/**/*",
@@ -36,8 +36,6 @@
     "bower_components/fontawesome/css/font-awesome.min.css",
     "bower_components/fontawesome/fonts/*",
     "bower_components/animate.css/animate.min.css",
-    "bower_components/simple-line-icons/css/simple-line-icons.css",
-    "bower_components/simple-line-icons/fonts/*",
     "bower_components/select2/dist/css/select2.css",
     "bower_components/select2/dist/js/select2.js",
     "bower_components/select2/dist/js/i18n/zh-CN.js",
