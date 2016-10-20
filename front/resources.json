@@ -1,0 +1,52 @@
+{
+  "script": {
+    "base.js": [
+      "scripts/base/require.js"
+    ],
+    "app.js": [
+      "scripts/framework/**/*",
+      "scripts/component/**/*",
+      "scripts/app.es6"
+    ],
+    "vendor.js": [
+      "scripts/vendor/**/*"
+    ]
+  },
+  "style": {
+    "app.css": [
+      "less/app.less"
+    ],
+    "bootstrap.css": [
+      "less/bootstrap.less"
+    ],
+    "theme-a.css": [
+      "less/themes/theme-a.less"
+    ]
+  },
+  "vendor": [
+    "bower_components/echarts/dist/echarts.min.js",
+    "bower_components/modernizr/modernizr.custom.js",
+    "bower_components/jquery/dist/jquery.js",
+    "bower_components/bootstrap/dist/js/bootstrap.js",
+    "bower_components/bootstrap/dist/css/bootstrap.css",
+    "bower_components/jQuery-Storage-API/jquery.storageapi.js",
+    "bower_components/jquery.easing/js/jquery.easing.js",
+    "bower_components/whirl/dist/whirl.css",
+    "bower_components/animo.js/animo.js",
+    "bower_components/fontawesome/css/font-awesome.min.css",
+    "bower_components/fontawesome/fonts/*",
+    "bower_components/animate.css/animate.min.css",
+    "bower_components/simple-line-icons/css/simple-line-icons.css",
+    "bower_components/simple-line-icons/fonts/*",
+    "bower_components/select2/dist/css/select2.css",
+    "bower_components/select2/dist/js/select2.js",
+    "bower_components/select2/dist/js/i18n/zh-CN.js",
+    "bower_components/select2-bootstrap-theme/dist/select2-bootstrap.css",
+    "bower_components/handlebars/handlebars.min.js",
+    "bower_components/sweetalert/dist/sweetalert.css",
+    "bower_components/sweetalert/dist/sweetalert.min.js",
+    "bower_components/twbs-pagination/jquery.twbsPagination.min.js",
+    "bower_components/selectize/dist/js/standalone/selectize.min.js",
+    "bower_components/selectize/dist/css/selectize.default.css"
+  ]
+}

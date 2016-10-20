@@ -1,282 +1,174 @@
-var args = require('yargs').argv,
-    path = require('path'),
-    gulp = require('gulp'),
-    $ = require('gulp-load-plugins')(),
-    gulpsync = $.sync(gulp),
-    browserSync = require('browser-sync'),
-    reload = browserSync.reload,
-    PluginError = $.util.PluginError;
+'use strict';
+var resource = require('./resources.json');
 
-// production mode (see build task)
+var gulp        = require('gulp'),
+    $           = require('gulp-load-plugins')(),
+    runSequence = require('run-sequence'),
+    del         = require('del');
+
 var isProduction = false;
-// styles sourcemaps
-var useSourceMaps = false;
+var assetTasks = [];
 
-// ignore everything that begins with underscore
-var hidden_files = '**/_*.*';
-var ignored_files = '!' + hidden_files;
+gulp.task('views', (callback) => {
+  log('Copying views...');
+  gulp.src('views/**/*.hbs')
+    .pipe(gulp.dest('../views/'))
+    .on('end', () => {
+      setTimeout(function() {
+        $.livereload.reload();
+      }, 1500);
+      callback();
+    });
+});
 
-// MAIN PATHS
-var paths = {
-    app: '../public/',
-    styles: 'less/',
-    scripts: 'js/'
+// compile script
+if(resource.script) {
+  for(var k in resource.script) {
+    (function(destFile, sources) {
+      gulp.task(`script:${destFile}`, (callback) => {
+        var jsFilter = $.filter('**/*.js', {restore: true});
+        var es6Filter = $.filter('**/*.es6', {restore: true});
+        log(`Compiling script ${destFile}...`);
+        gulp.src(sources)
+          .pipe(es6Filter)
+          .pipe($.eslint({
+            rules: { 'strict': 2 },
+            globals: [ 'jQuery', '$' ],
+            envs: ["browser", "node", "es6"],
+            ecmaVersion: 6,
+            ecmaFeatures: { "modules": true, "jsx": true }
+          }))
+          .pipe($.eslint.format())
+          .pipe($.eslint.failAfterError())
+          .on('error', handleError)
+          .pipe($.babel({ presets: ['es2015'] }))
+          .on('error', handleError)
+          .pipe($.wrapper({
+            header: function(file) {
+              var moduleName = file.path.replace(__dirname, '').replace('\\scripts\\', '').replace(/(\.js)|(\.es6)$/, '').replace(/\\/g,'/');
+              return 'this.require.define({"'+moduleName+'":function(exports, require, module){\n';
+            },
+            footer: '\n}});'
+          }))
+          .pipe(es6Filter.restore)
+          .pipe(jsFilter)
+          .pipe($.jsvalidate())
+          .on('error', handleError)
+          .pipe(jsFilter.restore)
+          .pipe($.if( isProduction, $.uglify() ))
+          .pipe($.concat(destFile))
+          .pipe($.if(isProduction, $.md5Plus(10, '../views/partials/scripts.hbs')))
+          .pipe(gulp.dest('../public/js/'))
+          .pipe($.livereload())
+          .on('end', callback);
+      });
+      assetTasks.push(`script:${k}`);
+    })(k, resource.script[k]);
+  }
+} else {
+  log('There is no script attribute in resource.json');
 }
-
-// VENDOR CONFIG
-var vendor = {
-    app: {
-        source: require('./vendor.json'),
-        dest: '../public/vendor'
-    }
-};
-
-// SOURCES CONFIG
-var source = {
-    scripts: {
-        app: [paths.scripts + 'app.init.js',
-            paths.scripts + 'modules/*.js',
-            paths.scripts + 'custom/**/*.js'
-        ],
-        single: paths.scripts + 'single/*.js'
-    },
-    styles: {
-        app: [paths.styles + '*.*'],
-        themes: [paths.styles + 'themes/*', ignored_files],
-        watch: [paths.styles + '**/*', '!' + paths.styles + 'themes/*']
-    },
-    hbs: ['../views/*.*', '../views/**/*']
-};
-
-// BUILD TARGET CONFIG
-var build = {
-    scripts: {
-        app: {
-            main: 'app.js',
-            dir: paths.app + 'js'
-        },
-        single: paths.app + 'js/single'
-    },
-    styles: {
-        app: paths.app + 'css'
-    }
-};
-
-// PLUGINS OPTIONS
-
-var prettifyOpts = {
-    indent_char: ' ',
-    indent_size: 3,
-    unformatted: ['a', 'sub', 'sup', 'b', 'i', 'u', 'pre', 'code']
-};
-
-var vendorUglifyOpts = {
-    mangle: {
-        except: ['$super'] // rickshaw requires this
-    }
-};
 
 var cssnanoOpts = {
-    safe: true,
-    discardUnused: false, // no remove @font-face
-    reduceIdents: false // no change on @keyframes names
+  safe: true,
+  discardUnused: false, // not remove @font-face
+  reduceIdents: false // not change on @keyframes names
+}
+// compile style
+if(resource.style) {
+  for(var k in resource.style) {
+    ((k) => {
+      gulp.task(`style:${k}`, (callback) => {
+        log(`Compiling style ${k}...`);
+        gulp.src(resource.style[k])
+          .pipe($.less())
+          .on("error", handleError)
+          .pipe($.if(isProduction, $.cssnano(cssnanoOpts)))
+          .pipe($.if(isProduction, $.md5Plus(10, '../views/partials/head.hbs')))
+          .pipe(gulp.dest('../public/css/'))
+          .pipe($.livereload())
+          .on('end', callback);
+      });
+      assetTasks.push(`style:${k}`);
+    })(k);
+  }
+} else {
+  log('There is no style attribute in resource.json');
 }
 
-//---------------
-// TASKS
-//---------------
-
-
-// JS APP
-gulp.task('scripts:app', function() {
-    log('Building scripts..');
-    // Minify and copy all JavaScript (except vendor scripts)
-    return gulp.src(source.scripts.app)
-        .pipe($.jsvalidate())
-        .on('error', handleError)
-        .pipe($.if(useSourceMaps, $.sourcemaps.init()))
-        .pipe($.concat(build.scripts.app.main))
-        .on("error", handleError)
-        .pipe($.if(isProduction, $.uglify({
-            preserveComments: 'some'
-        })))
-        .on("error", handleError)
-        .pipe($.if(useSourceMaps, $.sourcemaps.write()))
-        .pipe(gulp.dest(build.scripts.app.dir))
-        .pipe(reload({
-            stream: true
-        }));
+// copy vendor
+gulp.task('vendors', (callback) => {
+  log('Copying vendors...');
+  gulp.src(resource.vendor, {base: 'bower_components'})
+    .pipe($.expectFile(resource.vendor))
+    .pipe(gulp.dest('../public/vendor'))
+    .on('end', callback);
 });
 
-gulp.task('hbs:change', function() {
-    log('hbs change..');
-    // Minify and copy all JavaScript (except vendor scripts)
-    return gulp.src(source.hbs)
-      .pipe(reload({
-          stream: true
-      }));
+gulp.task('clean', (callback) => {
+  var delPaths = [ '../views/' ,'../public/css/', '../public/js/', '../public/vendor/' ];
+  log(`Cleaning: ${delPaths.join(', ')}`);
+  del(delPaths, {force: true});
+  log(`Done!`);
+  callback();
 });
 
-// VENDOR BUILD
-// copy file from bower folder into the app vendor folder
-gulp.task('vendor', function() {
-    log('Copying vendor assets..');
-
-    var jsFilter = $.filter('**/*.js');
-    var cssFilter = $.filter('**/*.css');
-
-    return gulp.src(vendor.app.source, {
-            base: 'bower_components'
-        })
-        .pipe($.expectFile(vendor.app.source))
-        .pipe(jsFilter)
-        .pipe($.if(isProduction, $.uglify(vendorUglifyOpts)))
-        .pipe(jsFilter.restore())
-        .pipe(cssFilter)
-        .pipe($.if(isProduction, $.cssnano(cssnanoOpts)))
-        .pipe(cssFilter.restore())
-        .pipe(gulp.dest(vendor.app.dest));
-
+gulp.task('build-dev', (callback) => {
+  runSequence('views', 'vendors', assetTasks, function() {
+    finishLog('Dev build done!');
+    callback();
+  });
 });
 
-// SCRIPTS DEMO
-// copy file from single folder into the app folder
-gulp.task('scripts:single', function() {
-
-    return gulp.src(source.scripts.single)
-        .pipe(gulp.dest(build.scripts.single))
-        .pipe(reload({
-            stream: true
-        }));
-
+gulp.task('build-release', (callback) => {
+  isProduction = true;
+  runSequence('views', 'vendors', assetTasks, function() {
+    finishLog('Release build done!');
+    callback();
+  });
 });
 
-// APP LESS
-gulp.task('styles:app', function() {
-    log('Building application styles..');
-    return gulp.src(source.styles.app)
-        .pipe($.if(useSourceMaps, $.sourcemaps.init()))
-        .pipe($.less())
-        .on("error", handleError)
-        .pipe($.if(isProduction, $.cssnano(cssnanoOpts)))
-        .pipe($.if(useSourceMaps, $.sourcemaps.write()))
-        .pipe(gulp.dest(build.styles.app))
-        .pipe(reload({
-            stream: true
-        }));
-});
-
-// LESS THEMES
-gulp.task('styles:themes', function() {
-    log('Building application theme styles..');
-    return gulp.src(source.styles.themes)
-        .pipe($.less())
-        .on("error", handleError)
-        .pipe(gulp.dest(build.styles.app))
-        .pipe(reload({
-            stream: true
-        }));
-});
-
-//---------------
-// WATCH
-//---------------
-
-// Rerun the task when a file changes
 gulp.task('watch', function() {
-    log('Watching source files..');
+  $.livereload.listen();
 
-    gulp.watch(source.scripts.app, ['scripts:app']);
-    gulp.watch(source.scripts.single, ['scripts:single']);
-    gulp.watch(source.styles.watch, ['styles:app']);
-    gulp.watch(source.styles.themes, ['styles:themes']);
-    gulp.watch(source.hbs.source, ['hbs:change']);
-
+  gulp.watch(['views/**/*.hbs'], ['views']);
+  if(resource.script) {
+    for(var k in resource.script) {
+      gulp.watch(resource.script[k], [`script:${k}`]);
+    }
+  }
+  if(resource.style) {
+    var styleTasks = [];
+    for(var k in resource.style) {
+      styleTasks.push(`style:${k}`);
+    }
+    gulp.watch('less/**/*.less', styleTasks);
+  }
 });
 
-// Serve files with auto reaload
-gulp.task('browsersync', function() {
-    log('Starting BrowserSync..');
-
-    browserSync({
-        notify: false,
-        server: {
-            baseDir: '..'
-        }
-    });
-
+gulp.task('default', (callback) => {
+  runSequence('views', 'vendors', assetTasks, 'watch', function() {
+    finishLog('Dev build done. Starting watch and LiveReload...');
+  });
 });
-
-//---------------
-// MAIN TASKS
-//---------------
-
-// build for production (no minify)
-gulp.task('dev-build', gulpsync.sync([
-    'vendor',
-    'assets'
-]));
-
-// build for production (minify)
-gulp.task('build', gulpsync.sync([
-    'prod',
-    'vendor',
-    'assets'
-]));
-
-gulp.task('prod', function() {
-    log('Starting production build...');
-    isProduction = true;
-});
-
-// Server for development
-gulp.task('serve', gulpsync.sync([
-    'default',
-    'browsersync'
-]), done);
-
-// Server for production
-gulp.task('serve-prod', gulpsync.sync([
-    'build',
-    'browsersync'
-]), done);
-
-// build with sourcemaps (no minify)
-gulp.task('sourcemaps', ['usesources', 'default']);
-gulp.task('usesources', function() {
-    useSourceMaps = true;
-});
-
-// default (no minify)
-gulp.task('default', gulpsync.sync([
-    'vendor',
-    'assets',
-    'watch'
-]), done);
-
-gulp.task('assets', [
-    'scripts:app',
-    'scripts:single',
-    'styles:app',
-    'styles:themes'
-]);
-
-
-/////////////////////
-
-function done(){
-  log('************');
-  log('* All Done * You can start editing your code, BrowserSync will update your browser after any change..');
-  log('************');
-}
 
 // Error handler
 function handleError(err) {
-    log(err.toString());
-    this.emit('end');
+  log(err.toString());
+  this.emit('end');
 }
 
-// log to console using
+// log to console using 
 function log(msg) {
-    $.util.log($.util.colors.blue(msg));
+  $.util.log( $.util.colors.blue( msg ) );  
+}
+
+function pLog(msg) {
+  return $.print(()=>( $.util.colors.blue( msg )) );
+}
+
+function finishLog(msg) {
+  log(`******************`);
+  log(`* IT'S HIGH NOON * ${msg}`);
+  log(`******************`);
 }
