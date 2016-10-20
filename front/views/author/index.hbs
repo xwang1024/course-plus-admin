@@ -21,33 +21,41 @@
       <div class="panel-body p0">
         <div class="row">
           <div class="col-md-12" style="min-height: 300px;">
-            <table class='table tabel-striped'>
+            <table class='table table-striped'>
               <thead>
               <tr>
-                <th class="text-left">姓名</th>
-                <th class="text-left">撰写知识点数</th>
+                <th class="text-left">头像</th>
+                <th class="text-center">编号</th>
+                <th class="text-center">姓名</th>
+                <th class="text-center">电话</th>
                 <th class="text-center">创建时间</th>
                 <th class="text-center">修改时间</th>
                 <th class="text-right">操作</th>
               </tr>
               </thead>
               <tbody>
-              {{#unless _DATA_.users}}
+              {{#unless _DATA_.result}}
                 <tr><td colspan="5" class="text-muted text-center">找不到数据（T T）</td></tr>
               {{else}}
-                {{#each _DATA_.users}}
-                  <tr data-id="{{{_id}}}">
-                    <td class="text-left" data-username="{{username}}">
-                      {{username}}
+                {{#each _DATA_.result}}
+                  <tr data-id="{{{id}}}">
+                    <td class="text-left" width="64">
+                      <img src="{{{qiniuFile icon}}}" style="width: 64px" id="icon-preview">
                     </td>
-                    <td class="text-center" data-role="{{role}}">
-                      {{role}}
-                    </td>
-                    <td class="text-center" data-is-active="{{isActive}}">
-                      {{isActive}}
+                    <td class="text-center" width="64">
+                      <a href="/author/{{{id}}}">{{padLeft id 6}}</a>
                     </td>
                     <td class="text-center">
-                      <small class="text-muted">{{date timeCreated "yyyy-MM-dd HH:mm:ss"}}</small>
+                      {{name}}
+                    </td>
+                    <td class="text-center">
+                      {{phone}}
+                    </td>
+                    <td class="text-center">
+                      <small class="text-muted">{{date createdAt "yyyy-MM-dd HH:mm:ss"}}</small>
+                    </td>
+                    <td class="text-center">
+                      <small class="text-muted">{{date updatedAt "yyyy-MM-dd HH:mm:ss"}}</small>
                     </td>
                     <td class="text-right">
                       <a href="javascript:;" name="modifyBtn">修改</a>
@@ -58,6 +66,17 @@
               {{/unless}}
               </tbody>
             </table>
+            <div class="row pt-lg">
+              <div class="col-md-12 text-center pagination-sm" id='pagination-container' 
+                   data-js-comp="component/common/pagination"
+                   data-total-count="{{_DATA_.totalCount}}"
+                   data-page-count="{{_DATA_.pageCount}}"
+                   data-page="{{_DATA_.page}}"
+              ></div>
+              <div class="col-md-12 text-center">
+                <small class="text-muted">检索到{{_DATA_.totalCount}}条，共{{_DATA_.pageCount}}页</small>
+              </div>
+            </div>
           </div>
         </div>
       </div>

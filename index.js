@@ -25,7 +25,7 @@ app.db = sequelize;
 var hbs = exphbs.create({
   extname: ".hbs",
   defaultLayout: 'default',
-  helpers: require('./lib/hbs_helper')
+  helpers: require('./lib/hbs_helper')(app)
 });
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
