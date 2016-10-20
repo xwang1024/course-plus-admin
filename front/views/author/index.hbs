@@ -66,16 +66,7 @@
               {{/unless}}
               </tbody>
             </table>
-            <div class="row pt-lg">
-              <div class="col-md-12 text-center pagination-sm" id='pagination-container' 
-                   data-js-comp="component/common/pagination"
-                   data-total-count="{{_DATA_.totalCount}}"
-                   data-page-count="{{_DATA_.pageCount}}"
-                   data-page="{{_DATA_.page}}"
-              ></div>
-              <div class="col-md-12 text-center">
-                <small class="text-muted">检索到{{_DATA_.totalCount}}条，共{{_DATA_.pageCount}}页</small>
-              </div>
+            {{> pagination}}
             </div>
           </div>
         </div>
