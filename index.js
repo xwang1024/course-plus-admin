@@ -22,13 +22,10 @@ var sequelize = new Sequelize(app.config.mysql.url);
 app.db = sequelize;
 
 // view engine setup
-app.set('views', __dirname + '\\front\\views');
 var hbs = exphbs.create({
   extname: ".hbs",
   defaultLayout: 'default',
-  helpers: require('./lib/hbs_helper'),
-  layoutsDir: 'front/views/layouts',
-  partialsDir: 'front/views/partials'
+  helpers: require('./lib/hbs_helper')
 });
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
