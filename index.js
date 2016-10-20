@@ -67,6 +67,7 @@ app.use(function(req, res, next) {
 
 app.use(function(err, req, res, next) {
   console.log(err);
+  console.log(err.stack);
   res.status(err.status || 500);
   if(req.headers['content-type'] && req.headers['content-type'].indexOf('application/json')>=0) {
     var workflow = require('./lib/workflow')(req, res);

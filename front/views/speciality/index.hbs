@@ -1,10 +1,38 @@
 {{#block "vendor_js"}}
+<script type="text/html" id='create-tpl'>
+  <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="createLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times;</button>
+        <h4 class="modal-title" id="createLabel">创建专业</h4>
+      </div>
+      <form id='speciality-form'>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>专业名称</label>
+            <input type="text" name='name' placeholder="请输入专业名称" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>所属学校</label>
+            <input type="text" name='schoolId' placeholder="请输入学校编号" class="form-control" required>
+          </div>
+        </div>
+          
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" name='submitBtn'>提交专业信息</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</script>
 {{/block}}
 
 <script>console.log({{{json}}})</script>
 <div class="content-heading">
   <div class="pull-right">
-    <button type="button" class="btn btn-sm btn-primary" name='createBtn'>新增专业</button>
+    <button type="button" class="btn btn-sm btn-primary" name='createBtn' data-js-comp="component/speciality/create">创建专业</button>
   </div>
   <ol class="breadcrumb">
     <li>
@@ -24,31 +52,38 @@
             <table class='table tabel-striped'>
               <thead>
               <tr>
-                <th class="text-left">专业名称</th>
-                <th class="text-left">课程数量</th>
-                <th class="text-left">所属学校</th>
+                <th class="text-left">编号</th>
+                <th class="text-center">专业名称</th>
+                <th class="text-center">课程数量</th>
+                <th class="text-center">所属学校</th>
                 <th class="text-center">创建时间</th>
                 <th class="text-center">修改时间</th>
                 <th class="text-right">操作</th>
               </tr>
               </thead>
               <tbody>
-              {{#unless _DATA_.users}}
-                <tr><td colspan="5" class="text-muted text-center">找不到数据（T T）</td></tr>
+              {{#unless _DATA_.result}}
+                <tr><td colspan="7" class="text-muted text-center">找不到数据（T T）</td></tr>
               {{else}}
-                {{#each _DATA_.users}}
-                  <tr data-id="{{{_id}}}">
-                    <td class="text-left" data-username="{{username}}">
-                      {{username}}
-                    </td>
-                    <td class="text-center" data-role="{{role}}">
-                      {{role}}
-                    </td>
-                    <td class="text-center" data-is-active="{{isActive}}">
-                      {{isActive}}
+                {{#each _DATA_.result}}
+                  <tr data-id="{{{id}}}">
+                    <td class="text-left" width="64">
+                      {{padLeft id 6}}
                     </td>
                     <td class="text-center">
-                      <small class="text-muted">{{date timeCreated "yyyy-MM-dd HH:mm:ss"}}</small>
+                      {{name}}
+                    </td>
+                    <td class="text-center">
+                      {{courseCount}}
+                    </td>
+                    <td class="text-center">
+                      {{school.name}}
+                    </td>
+                    <td class="text-center">
+                      <small class="text-muted">{{date createdAt "yyyy-MM-dd HH:mm:ss"}}</small>
+                    </td>
+                    <td class="text-center">
+                      <small class="text-muted">{{date updatedAt "yyyy-MM-dd HH:mm:ss"}}</small>
                     </td>
                     <td class="text-right">
                       <a href="javascript:;" name="modifyBtn">修改</a>
