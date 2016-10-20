@@ -4,121 +4,14 @@
       <li class="nav-heading">
         <span>概览</span>
       </li>
-      {{#startsWith _PATH_ "/admin/dashboard" }}
+      {{#startsWith _PATH_ "/dashboard" }}
       <li class="active">
       {{else}}
       <li>
       {{/startsWith}}
-        <a href="/admin/dashboard" title="控制台">
+        <a href="/dashboard" title="控制台">
           <em class="icon-speedometer"></em>
           <span>控制台</span>
-        </a>
-      </li>
-
-      <li class="nav-heading">
-        <span>功能</span>
-      </li>
-
-      {{#startsWith _PATH_ "/admin/feature/groupSend"}}
-      <li class="active">
-      {{else}}
-      <li>
-      {{/startsWith}}
-        <a href="/admin/feature/groupSend" title="群发功能">
-          <em class="icon-speech"></em>
-          <span>群发功能</span>
-        </a>
-      </li>
-
-      {{#startsWith _PATH_ "/admin/feature/messageBoard"}}
-      <li class="active">
-      {{else}}
-      <li>
-      {{/startsWith}}
-        <a href="/admin/feature/messageBoard" title="留言查看">
-          <em class="icon-bubbles"></em>
-          <span>留言查看</span>
-        </a>
-      </li>
-
-      {{#startsWith _PATH_ "/admin/feature/doctorVote"}}
-      <li class="active">
-      {{else}}
-      <li>
-      {{/startsWith}}
-        <a href="/admin/feature/doctorVote" title="医生推荐记录">
-          <em class="icon-like"></em>
-          <span>医生推荐记录</span>
-        </a>
-      </li>
-
-      {{#startsWith _PATH_ "/admin/feature/userAnalysis"}}
-      <li class="active">
-      {{else}}
-      <li>
-      {{/startsWith}}
-        <a href="/admin/feature/userAnalysis" title="用户行为数据">
-          <em class="icon-compass"></em>
-          <span>用户行为数据</span>
-        </a>
-      </li>
-
-      <li class="nav-heading">
-        <span>素材库</span>
-      </li>
-
-      {{#startsWith _PATH_ "/admin/media/article" }}
-      <li class="active">
-      {{else}}
-      <li>
-      {{/startsWith}}
-      <a href="/admin/media/article" title="图文素材">
-        <em class="icon-book-open"></em>
-        <span>图文素材</span>
-      </a>
-      </li>
-
-      {{#startsWith _PATH_ "/admin/media/image"}}
-      <li class="active">
-      {{else}}
-      <li>
-      {{/startsWith}}
-        <a href="/admin/media/image" title="图片素材">
-          <em class="icon-picture"></em>
-          <span>图片素材</span>
-        </a>
-      </li>
-
-      {{#startsWith _PATH_ "/admin/media/audio"}}
-      <li class="active">
-      {{else}}
-      <li>
-      {{/startsWith}}
-        <a href="/admin/media/audio" title="音频素材">
-          <em class="icon-microphone"></em>
-          <span>音频素材</span>
-        </a>
-      </li>
-
-      {{#startsWith _PATH_ "/admin/media/video"}}
-      <li class="active">
-      {{else}}
-      <li>
-      {{/startsWith}}
-        <a href="/admin/media/video" title="视频素材">
-          <em class="icon-camrecorder"></em>
-          <span>视频素材</span>
-        </a>
-      </li>
-
-      {{#startsWith _PATH_ "/admin/media/question"}}
-      <li class="active">
-      {{else}}
-      <li>
-      {{/startsWith}}
-        <a href="/admin/media/question" title="问题素材">
-          <em class="icon-question"></em>
-          <span>问题素材</span>
         </a>
       </li>
 
@@ -126,76 +19,115 @@
         <span>管理</span>
       </li>
 
-      {{#startsWith _PATH_ "/admin/user"}}
+      {{#startsWith _PATH_ "/user"}}
       <li class="active">
       {{else}}
       <li>
       {{/startsWith}}
-        <a href="/admin/user" title="用户管理">
+        <a href="/user" title="用户管理">
           <em class="icon-people"></em>
           <span>用户管理</span>
         </a>
       </li>
 
-      {{#startsWith _PATH_ "/admin/scale"}}
+      {{#startsWith _PATH_ "/school"}}
       <li class="active">
       {{else}}
       <li>
       {{/startsWith}}
-        <a href="/admin/scale" title="量表管理">
-          <em class="icon-docs"></em>
-          <span>量表管理</span>
+        <a href="/school" title="学校管理">
+          <em class="icon-unifersity"></em>
+          <span>学校管理</span>
         </a>
       </li>
 
-      {{#startsWith _PATH_ "/admin/announcement"}}
+      {{#startsWith _PATH_ "/speciality"}}
       <li class="active">
       {{else}}
       <li>
       {{/startsWith}}
-        <a href="/admin/announcement" title="通知管理">
+        <a href="/speciality" title="专业管理">
           <em class="icon-bell"></em>
-          <span>通知管理</span>
+          <span>专业管理</span>
         </a>
       </li>
 
-      {{#startsWith _PATH_ "/admin/qrcode"}}
+      {{#startsWith _PATH_ "/course"}}
       <li class="active">
       {{else}}
       <li>
       {{/startsWith}}
-        <a href="/admin/qrcode" title="二维码管理">
-          <em class="fa fa-qrcode"></em>
-          <span>二维码管理</span>
+        <a href="/course" title="课程管理">
+          <em class="icon-bell"></em>
+          <span>课程管理</span>
         </a>
       </li>
 
-      {{#startsWith _PATH_ "/admin/root/account"}}
+      {{#startsWith _PATH_ "/author"}}
       <li class="active">
       {{else}}
       <li>
       {{/startsWith}}
-        <a href="/admin/root/account" title="运营账号管理">
+        <a href="/author" title="作者管理">
+          <em class="icon-bell"></em>
+          <span>作者管理</span>
+        </a>
+      </li>
+
+      {{#startsWith _PATH_ "/topic"}}
+      <li class="active">
+      {{else}}
+      <li>
+      {{/startsWith}}
+        <a href="/topic" title="知识点管理">
+          <em class="icon-bell"></em>
+          <span>知识点管理</span>
+        </a>
+      </li>
+
+      {{#startsWith _PATH_ "/attachment"}}
+      <li class="active">
+      {{else}}
+      <li>
+      {{/startsWith}}
+        <a href="/attachment" title="附件管理">
+          <em class="icon-bell"></em>
+          <span>附件管理</span>
+        </a>
+      </li>
+
+      {{#startsWith _PATH_ "/comment"}}
+      <li class="active">
+      {{else}}
+      <li>
+      {{/startsWith}}
+        <a href="/comment" title="评论管理">
+          <em class="icon-bell"></em>
+          <span>评论管理</span>
+        </a>
+      </li>
+
+      {{#startsWith _PATH_ "/asset"}}
+      <li class="active">
+      {{else}}
+      <li>
+      {{/startsWith}}
+        <a href="/asset" title="素材管理">
+          <em class="icon-bell"></em>
+          <span>素材管理</span>
+        </a>
+      </li>
+
+      {{#startsWith _PATH_ "/account"}}
+      <li class="active">
+      {{else}}
+      <li>
+      {{/startsWith}}
+        <a href="/account" title="运营账号管理">
           <em class="icon-badge"></em>
           <span>运营账号管理</span>
         </a>
       </li>
-      <!--<li class=" ">-->
-        <!--<a href="#menuid" title="Menu" data-toggle="collapse">-->
-          <!--<em class="icon-folder"></em>-->
-          <!--<span>Menu</span>-->
-        <!--</a>-->
-        <!--<ul id="menuid" class="nav sidebar-subnav collapse">-->
-          <!--<li class="sidebar-subnav-header">Menu</li>-->
-          <!--<li class=" ">-->
-            <!--<a href="submenu.html" title="Sub Menu">-->
-              <!--<span>Sub Menu</span>-->
-            <!--</a>-->
-          <!--</li>-->
-        <!--</ul>-->
-      <!--</li>-->
     </ul>
-    <!-- END sidebar nav-->
   </nav>
 </div>
-<!-- END Sidebar (left)-->
