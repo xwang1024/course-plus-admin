@@ -103,7 +103,7 @@
     $('[name=authorForm]').submit();
   })
 
-  $('[name=authorForm]').on('submit', function (e) {
+  $('#author-form').on('submit', function (e) {
     if (e.isDefaultPrevented()) {
     } else {
       e.preventDefault();

@@ -4,7 +4,7 @@
 <script>console.log({{{json}}})</script>
 <div class="content-heading">
   <div class="pull-right">
-    <a href="/author/create" class="btn btn-sm btn-primary">新增作者</a>
+    <a href="/author/create" class="btn btn-sm btn-primary">创建作者</a>
   </div>
   <ol class="breadcrumb">
     <li>
@@ -35,7 +35,7 @@
               </thead>
               <tbody>
               {{#unless _DATA_.result}}
-                <tr><td colspan="5" class="text-muted text-center">找不到数据（T T）</td></tr>
+                <tr><td colspan="7" class="text-muted text-center">找不到数据（T T）</td></tr>
               {{else}}
                 {{#each _DATA_.result}}
                   <tr data-id="{{{id}}}">
