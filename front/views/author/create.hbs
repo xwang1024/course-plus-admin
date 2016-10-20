@@ -1,50 +1,17 @@
 {{#block "vendor_js"}}
-<script src="/vendor/cropper/dist/cropper.min.js"></script>
 <script src="/vendor/plupload/js/plupload.full.min.js"></script>
 <script src="/vendor/qiniu/dist/qiniu.min.js"></script>
-<script type="text/html" id='edit-avatar-tpl'>
-  <div class="modal fade" id="edit-avatar" tabindex="-1" role="dialog" aria-labelledby="editAvatarLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg whirl traditional">
-      <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times;</button>
-        <h4 class="modal-title" id="editAvatarLabel">编辑个人形象</h4>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-md-6 col-lg-6">
-            <div style="height: 400px; width: 100%;">
-              <img class="hidden" src="" name="avatarImg">
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-6">
-            <div class="img-preview" id="avatar-preview-container" style="height: 400px; width: 320px; margin-left: 40px;">
-            </div>
-          </div>
-        </div>
-       
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" name='submitBtn'>确定</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-      </div>
-    </div>
-  </div>
-</script>
 {{/block}}
 
 {{#block "vendor_css"}}
-<link rel="stylesheet" href="/vendor/cropper/dist/cropper.min.css"/>
 <link rel="stylesheet" href="/vendor/blueimp-file-upload/css/jquery.fileupload.css"/>
 {{/block}}
 
 <script>console.log({{{json}}})</script>
 
-
-
 <div class="content-heading">
   <div class="pull-right">
-    <a href="/author/create" class="btn btn-sm btn-primary">提交作者信息</a>
+    <a href="javascript:;" class="btn btn-sm btn-primary" name="submitAuthorBtn">提交作者信息</a>
   </div>
   <ol class="breadcrumb">
     <li>
@@ -64,6 +31,7 @@
     <div class="row">
       <div class="col-md-3">
         <p class="lead bb pb-sm">形象</p>
+        <img src="" style="width: 100%" id="avatar-preview">
         <div class="col-md-12 text-center" id='avatar-container'>
           <a href="javascript:;" class="btn btn-primary" id="avatar-upload-btn">
             <span>上传形象</span>
@@ -72,58 +40,50 @@
       </div>
       <div class="col-md-9">
         <p class="lead bb pb-sm">个人信息</p>
-        <form class="form-horizontal p-20">
-          <!--<div class="form-group">
-            <label class="col-lg-2 control-label">头像</label>
-            <div class="col-sm-8">
-              <div style='width: 100px; height: 100px;'>
-                <img src="{{{_DATA_.wechatInfo.headimgurl}}}" style='max-width: 100px; max-height: 100px;'/>
-              </div>
-            </div>
-          </div>-->
+        <form class="form-horizontal p-20" name="authorForm">
           <div class="form-group">
             <label class="col-lg-2 control-label">头像</label>
-            <div class="col-lg-8">
-              <span class="btn btn-primary fileinput-button">
+            <div class="col-lg-8" id='icon-container'>
+              <img src="" style="width: 64px" id="icon-preview">
+              <a href="javascript:;" class="btn btn-primary" id="icon-upload-btn">
                 <span>上传头像</span>
-                <input type="file" name="iconFile">
-              </span>
+              </a>
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-2 control-label">姓名</label>
             <div class="col-lg-8">
-              <input type="text" placeholder="请输入姓名" class="form-control">
+              <input type="text" placeholder="请输入姓名" class="form-control" name="name">
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-2 control-label">电话</label>
             <div class="col-lg-8">
-              <input type="text" placeholder="请输入电话" class="form-control">
+              <input type="text" placeholder="请输入电话" class="form-control" name="phone">
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-2 control-label">邮件</label>
             <div class="col-lg-8">
-              <input type="text" placeholder="请输入邮件" class="form-control">
+              <input type="text" placeholder="请输入邮件" class="form-control" name="email">
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-2 control-label">QQ</label>
             <div class="col-lg-8">
-              <input type="text" placeholder="请输入QQ" class="form-control">
+              <input type="text" placeholder="请输入QQ" class="form-control" name="qq">
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-2 control-label">微信</label>
             <div class="col-lg-8">
-              <input type="text" placeholder="请输入微信" class="form-control">
+              <input type="text" placeholder="请输入微信" class="form-control" name="wechat">
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-2 control-label">介绍</label>
             <div class="col-lg-8">
-              <textarea placeholder="请输入介绍" class="form-control" style="height: 100px; resize: none;"></textarea>
+              <textarea placeholder="请输入介绍" class="form-control" style="height: 100px; resize: none;" name="introduction"></textarea>
             </div>
           </div>
         </form>
