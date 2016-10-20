@@ -1,10 +1,6 @@
 {{#block "vendor_css"}}
 {{/block}}
 
-{{#block "vendor_js"}}
-<script type="text/javascript" src="/js/single/dashboard-index.js"></script>
-{{/block}}
-
 <script>console.log({{{json}}})</script>
 <div class="content-heading">
   <ol class="breadcrumb">
@@ -70,7 +66,7 @@
 
   <!--日期-->
   <div class="col-lg-3 col-md-6 col-sm-12">
-    <div class="panel widget">
+    <div class="panel widget" data-js-comp="component/index/clock">
       <div class="row row-table">
         <div class="col-xs-4 text-center bg-green pv-lg">
           <div data-now="" class="text-sm" name='month'>七月</div>

@@ -1,7 +1,7 @@
 'use strict';
 
-(function(window, document, $, module, exports, require, loader, swal){
-
+(function(window, document, $, module, exports, require, swal){
+  var Loader = require('component/common/loader');
   module.exports = (function() {
     var info = {
       0  : {en: "Connect Timeout",       ch: "服务器连接失败或超时"},
@@ -17,11 +17,11 @@
       503: {en: "Service Unavailable",   ch: "该服务暂时不可用"}
     }
     $(document).ajaxError(function( event, jqXHR, settings, thrownError ) {
-      if(loader) loader.hide();
+      Loader.hide();
       if(swal) swal("出现异常", settings.url+'\n\n'+info[jqXHR.status].ch, "error")
       console.log(settings.url);
       console.log(info[jqXHR.status].ch);
     });
   })();
 
-})(window, document, window['jQuery'], window['module'], window['exports'], window['require'], window['loader'], window['swal']);
+})(window, document, window['jQuery'], module, exports, require, window['swal']);

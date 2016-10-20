@@ -8,4 +8,4 @@
       require(componentName);
     });
   })();
-})(window, document, window['jQuery'], window['module'], window['exports'], window['require']);
+})(window, document, window['jQuery'], module, exports, require);
