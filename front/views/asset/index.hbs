@@ -1,0 +1,70 @@
+{{#block "vendor_js"}}
+{{/block}}
+
+<script>console.log({{{json}}})</script>
+<div class="content-heading">
+  <div class="pull-right">
+    <button type="button" class="btn btn-sm btn-primary" name='createBtn'>新增素材</button>
+  </div>
+  <ol class="breadcrumb">
+    <li>
+      <span>管理</span>
+    </li>
+    <li class="active">
+      <span>素材管理</span>
+    </li>
+  </ol>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default" data-auto-height='45'>
+      <div class="panel-body p0">
+        <div class="row">
+          <div class="col-md-12" style="min-height: 300px;">
+            <table class='table tabel-striped'>
+              <thead>
+              <tr>
+                <th class="text-left">素材名称</th>
+                <th class="text-left">知识点数量</th>
+                <th class="text-left">作者数量</th>
+                <th class="text-left">附件数量</th>
+                <th class="text-left">所属学校</th>
+                <th class="text-left">所属专业</th>
+                <th class="text-center">创建时间</th>
+                <th class="text-center">修改时间</th>
+                <th class="text-right">操作</th>
+              </tr>
+              </thead>
+              <tbody>
+              {{#unless _DATA_.users}}
+                <tr><td colspan="5" class="text-muted text-center">找不到数据（T T）</td></tr>
+              {{else}}
+                {{#each _DATA_.users}}
+                  <tr data-id="{{{_id}}}">
+                    <td class="text-left" data-username="{{username}}">
+                      {{username}}
+                    </td>
+                    <td class="text-center" data-role="{{role}}">
+                      {{role}}
+                    </td>
+                    <td class="text-center" data-is-active="{{isActive}}">
+                      {{isActive}}
+                    </td>
+                    <td class="text-center">
+                      <small class="text-muted">{{date timeCreated "yyyy-MM-dd HH:mm:ss"}}</small>
+                    </td>
+                    <td class="text-right">
+                      <a href="javascript:;" name="modifyBtn">修改</a>
+                      <a href="javascript:;" name="deleteBtn">删除</a>
+                    </td>
+                  </tr>
+                {{/each}}
+              {{/unless}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

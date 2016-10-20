@@ -1,5 +1,4 @@
 {{#block "vendor_js"}}
- <script src="/js/single/account-index.js"></script> 
 <!--创建用户modal模板-->
 <script type="text/html" id='create-tpl'>
   <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="createLabel" aria-hidden="true">
@@ -90,7 +89,7 @@
 <script>console.log({{{json}}})</script>
 <div class="content-heading">
   <div class="pull-right">
-    <button type="button" class="btn btn-sm btn-green" name='createBtn'>添加运营账号</button>
+    <button type="button" class="btn btn-sm btn-primary" name='createBtn'>添加运营账号</button>
   </div>
   <ol class="breadcrumb">
     <li>
@@ -119,7 +118,7 @@
               </thead>
               <tbody>
               {{#unless _DATA_.users}}
-                <tr><td colspan="5" class="text-muted text-center">その話もう聞き飽きたわ</td></tr>
+                <tr><td colspan="5" class="text-muted text-center">找不到数据（T T）</td></tr>
               {{else}}
                 {{#each _DATA_.users}}
                   <tr data-id="{{{_id}}}">
