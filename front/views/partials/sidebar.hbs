@@ -63,17 +63,6 @@
         </a>
       </li>
 
-      {{#startsWith _PATH_ "/author"}}
-      <li class="active">
-      {{else}}
-      <li>
-      {{/startsWith}}
-        <a href="/author" title="作者管理">
-          <em class="fa fa-mortar-board"></em>
-          <span>作者管理</span>
-        </a>
-      </li>
-
       {{#startsWith _PATH_ "/topic"}}
       <li class="active">
       {{else}}
@@ -82,6 +71,28 @@
         <a href="/topic" title="知识点管理">
           <em class="fa fa-flag"></em>
           <span>知识点管理</span>
+        </a>
+      </li>
+
+      {{#startsWith _PATH_ "/attachment"}}
+      <li class="active">
+      {{else}}
+      <li>
+      {{/startsWith}}
+        <a href="/attachment" title="附件管理">
+          <em class="fa fa-mortar-board"></em>
+          <span>附件管理</span>
+        </a>
+      </li>
+
+      {{#startsWith _PATH_ "/author"}}
+      <li class="active">
+      {{else}}
+      <li>
+      {{/startsWith}}
+        <a href="/author" title="作者管理">
+          <em class="fa fa-mortar-board"></em>
+          <span>作者管理</span>
         </a>
       </li>
 
