@@ -27,6 +27,7 @@
     "codemirror": "^5.18.2",
     "echarts": "^3.2.3",
     "cropper": "^2.3.4",
-    "qiniu": "^1.0.17"
+    "qiniu": "^1.0.17",
+    "wangEditor": "^2.1.21"
   }
 }

@@ -49,7 +49,7 @@
     "bower_components/cropper/dist/cropper.min.css",
     "bower_components/blueimp-file-upload/css/jquery.fileupload.css",
     "bower_components/plupload/js/*",
-    "bower_components/qiniu/dist/qiniu.min.js"
-
+    "bower_components/qiniu/dist/qiniu.min.js",
+    "bower_components/wangEditor/dist/**/*"
   ]
 }
