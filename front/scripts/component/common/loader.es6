@@ -3,11 +3,14 @@
 (function(window, document, $, module, exports, require){
   let $loader = $(".loader");
   module.exports =  {
-    show: function() {
-      $loader.fadeIn();
+    show: function(container) {
+      if(container) $(container).find('.loader').fadeIn();
+      else          $loader.fadeIn();
+      
     },
-    hide: function() {
-      $loader.fadeOut();
+    hide: function(container) {
+      if(container) $(container).find('.loader').fadeOut();
+      else          $loader.fadeOut();
     }
   }
 })(window, document, window['jQuery'], module, exports, require);

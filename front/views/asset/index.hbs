@@ -1,10 +1,49 @@
 {{#block "vendor_js"}}
+<script src="/vendor/plupload/js/plupload.full.min.js"></script>
+<script src="/vendor/qiniu/dist/qiniu.min.js"></script>
+<script type="text/html" id='create-tpl'>
+  <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="createLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="loader" style="display: none;">
+          <div class="whirl traditional"></div>
+        </div>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times;</button>
+          <h4 class="modal-title" id="createLabel">上传素材</h4>
+        </div>
+        <form id='asset-form'>
+          <div class="modal-body">
+            <div class="form-group">
+              <label>素材名称</label>
+              <input type="text" name='name' placeholder="请输入素材名称" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>素材文件</label>
+              <div class="input-group">
+                <span type="text" class="form-control" name="uploadFilePath"></span>
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" id="asset-upload-btn">选择文件</button>
+                </span>
+              </div>
+            </div>
+          </div>
+            
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" name='submitBtn'>提交</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</script>
 {{/block}}
 
 <script>console.log({{{json}}})</script>
 <div class="content-heading">
   <div class="pull-right">
-    <button type="button" class="btn btn-sm btn-primary" name='createBtn'>创建素材</button>
+    <button type="button" class="btn btn-sm btn-primary" name='createBtn' data-js-comp="component/asset/create">上传素材</button>
   </div>
   <ol class="breadcrumb">
     <li>
@@ -24,12 +63,10 @@
             <table class='table tabel-striped'>
               <thead>
               <tr>
-                <th class="text-left">素材名称</th>
-                <th class="text-left">知识点数量</th>
-                <th class="text-left">作者数量</th>
-                <th class="text-left">附件数量</th>
-                <th class="text-left">所属学校</th>
-                <th class="text-left">所属专业</th>
+                <th class="text-left">编号</th>
+                <th class="text-left">名称</th>
+                <th class="text-left">类型</th>
+                <th class="text-left">引用次数</th>
                 <th class="text-center">创建时间</th>
                 <th class="text-center">修改时间</th>
                 <th class="text-right">操作</th>
@@ -37,7 +74,7 @@
               </thead>
               <tbody>
               {{#unless _DATA_.users}}
-                <tr><td colspan="5" class="text-muted text-center">找不到数据（T T）</td></tr>
+                <tr><td colspan="7" class="text-muted text-center">找不到数据（T T）</td></tr>
               {{else}}
                 {{#each _DATA_.users}}
                   <tr data-id="{{{_id}}}">
