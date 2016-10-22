@@ -24,13 +24,16 @@
         },
         processResults: function (data, params) {
           params.page = params.page || 1;
-
           return {
             results: data.result.map((row) => {
-              return {
+              var result = {
                 id: row.id,
                 text: row.name
               }
+              if(modelName == 'speciality') {
+                result.text = `${row.name} - ${row.school.name}`
+              }
+              return result;
             })
           };
         },
@@ -41,7 +44,9 @@
 
   function initSelect2(modelName, initId, initText) {
     if(initId && initText) {
-      $(`[name=${modelName}Id]`).html(`<option name='${initId}' selected>${initText}</option>`);
+      console.log(initId, initText)
+      $(`[name=${modelName}Id]`).html(`<option value="${initId}">${initText}</option>`);
+      $(`[name=${modelName}Id]`).val(initId);
     }
     $(`[name=${modelName}Id]`).select2(getSelect2Config(modelName));
   }

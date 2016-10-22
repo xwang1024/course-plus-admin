@@ -31,7 +31,7 @@
         });
         if(data.result['schoolId']) {
           $.ajax({
-            url: `/api/school/${id}`,
+            url: `/api/school/${data.result['schoolId']}`,
             type: 'GET',
             dataType: 'json',
             success: function (data) {

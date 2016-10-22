@@ -39,7 +39,11 @@
     }
   });
 
-  initSelect2('school');
+  var modelNames = ['school', 'speciality'];
+
+  modelNames.forEach((modelName) => {
+    if($(`[name=${modelName}Id]`).length > 0) initSelect2(modelName);
+  });
 
   function initSelect2(modelName) {
     if(!query.get('filter') || !query.get('filter')[`${modelName}Id`]) {
@@ -52,7 +56,11 @@
         dataType: 'json',
         success: function (data) {
           if(data.error) return;
-          select2.init(modelName, data.result.id, data.result.name);
+          if(modelName === 'speciality') {
+            select2.init(modelName, data.result.id, `${data.result.name} - ${data.result.school.name}`);
+          } else {
+            select2.init(modelName, data.result.id, data.result.name);
+          }
         }
       });
     }

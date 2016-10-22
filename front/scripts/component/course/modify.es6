@@ -3,18 +3,60 @@
 (function(window, document, $, module, exports, require, swal, Qiniu, QiniuConfig){
   var select2 = require('component/common/select2');
   var Loader = require('component/common/loader');
-
+  
+  var id;
   var uploader;
+  var fileReady = false;
   var formData = {};
-  $('[name=createBtn]').click(function(e) {
-    $('body').append($('#create-tpl').html());
+  $('[name=modifyBtn]').click(function(e) {
+    id = $(this).parents('tr').data('id');
+    console.log('[Modify]', id);
+
+    $('body').append($('#modify-tpl').html());
+
+    // 获取数据
+    Loader.show('#modify');
+    $.ajax({
+      url: `/api/course/${id}`,
+      type: 'GET',
+      dataType: 'json',
+      success: function (data) {
+        Loader.hide('#modify');
+        if(data.error) {
+          if(typeof data.error.message === 'object') {
+            data.error.message = data.error.message.join('\n');
+          }
+          return swal('错误', data.error.message, 'error');
+        }
+        // input赋值
+        $('#modify').find('input,select,textarea').each(function() {
+          var name = $(this).attr('name');
+          if(data.result[name]) $(this).val(data.result[name]);
+        });
+        $('#modify [name=uploadFilePath]').text(data.result['cover']);
+        if(data.result['specialityId']) {
+          $.ajax({
+            url: `/api/speciality/${data.result['specialityId']}`,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+              if(data.error) return;
+              select2.init('speciality', data.result.id, `${data.result.name} - ${data.result.school.name}`);
+            }
+          });
+        } else {
+          select2.init('speciality');
+        }
+      }
+    });
+
     bindSubmit();
     bindUpload();
-    $('#create').on('hidden.bs.modal', function() {
-      $('#create').remove();
-    });
-    select2.init('speciality');
-    $('#create').modal({backdrop: 'static', keyboard: false});
+
+    $('#modify').on('hidden.bs.modal', function() {
+      $('#modify').remove();
+    })
+    $('#modify').modal({backdrop: 'static', keyboard: false});
   });
 
   function bindSubmit() {
@@ -27,7 +69,36 @@
           return obj;
         }, {});
         // 上传文件
-        uploader.start();
+        if(fileReady) {
+          uploader.start();
+        } else {
+          formData['specialityId'] = parseInt(formData['specialityId']);
+          $.ajax({
+            url: `/api/course/${id}`,
+            type: 'PUT',
+            data: JSON.stringify(formData),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+              Loader.hide('#modify');
+              if(data.error) {
+                if(typeof data.error.message === 'object') {
+                  data.error.message = data.error.message.join('\n');
+                }
+                return swal('错误', data.error.message, 'error');
+              } else {
+                swal({
+                    title : "成功",
+                    text : "专业修改成功",
+                    type : "success"
+                  },
+                  function () {
+                    location.reload();
+                  });
+              }
+            }
+          });
+        }
       }
     });
   }
@@ -54,9 +125,11 @@
         FilesAdded: function(up, files) {
           if(files.length === 0 ) {
             $('[name=uploadFilePath]').empty();
+            fileReady = false;
           } else {
             var fileName = files[0].name;
             $('[name=uploadFilePath]').text(fileName);
+            fileReady = true;
           }
         },
         BeforeUpload: function(up, file) {
@@ -69,13 +142,13 @@
           formData['specialityId'] = parseInt(formData['specialityId']);
           
           $.ajax({
-            url: '/api/course',
-            type: 'POST',
+            url: `/api/course/${id}`,
+            type: 'PUT',
             data: JSON.stringify(formData),
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
-              Loader.hide('#create');
+              Loader.hide('#modify');
               if(data.error) {
                 if(typeof data.error.message === 'object') {
                   data.error.message = data.error.message.join('\n');
@@ -84,7 +157,7 @@
               } else {
                 swal({
                     title : "成功",
-                    text : "课程上传成功",
+                    text : "专业修改成功",
                     type : "success"
                   },
                   function () {

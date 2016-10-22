@@ -4,6 +4,9 @@
 <script type="text/html" id='create-tpl'>
   <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="createLabel" aria-hidden="true">
     <div class="modal-dialog">
+      <div class="loader" style="display: none;">
+        <div class="whirl traditional"></div>
+      </div>
       <div class="modal-content">
         <div class="loader" style="display: none;">
           <div class="whirl traditional"></div>
@@ -29,7 +32,56 @@
             </div>
             <div class="form-group">
               <label>所属专业</label>
-              <input type="text" name='specialityId' placeholder="请输入专业编号" class="form-control" required>
+              <select name="specialityId" class="form-control" style="width: 100%" required></select>
+            </div>
+            <div class="form-group">
+              <label>课程介绍</label>
+              <textarea placeholder="请输入介绍" class="form-control" style="height: 100px; resize: none;" name="introduction" required></textarea>
+            </div>
+          </div>
+            
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" name='submitBtn'>提交</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</script>
+
+<script type="text/html" id='modify-tpl'>
+  <div class="modal fade" id="modify" tabindex="-1" role="dialog" aria-labelledby="modifyLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="loader" style="display: none;">
+        <div class="whirl traditional"></div>
+      </div>
+      <div class="modal-content">
+        <div class="loader" style="display: none;">
+          <div class="whirl traditional"></div>
+        </div>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times;</button>
+          <h4 class="modal-title" id="modifyLabel">创建课程</h4>
+        </div>
+        <form id='course-form'>
+          <div class="modal-body">
+            <div class="form-group">
+              <label>课程名称</label>
+              <input type="text" name='name' placeholder="请输入课程名称" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>课程封面</label>
+              <div class="input-group">
+                <span type="text" class="form-control" name="uploadFilePath"><span class="text-placeholder">请选择课程封面文件</span></span>
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" id="cover-upload-btn">选择文件</button>
+                </span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>所属专业</label>
+              <select name="specialityId" class="form-control" style="width: 100%" required></select>
             </div>
             <div class="form-group">
               <label>课程介绍</label>
@@ -64,6 +116,41 @@
 </div>
 <div class="row">
   <div class="col-md-12">
+    <div class='panel panel-default panel-search' data-js-comp="component/common/search_panel">
+      <div class="panel-body">
+        <form id="search-form" class="form-inline">
+          <table>
+            <tr>
+              <td class="search-label">
+                课程名称：
+              </td>
+              <td>
+                <input type="text" class="form-control input-sm" name="name" placeholder="请输入" value="{{likeQuery _QUERY_.filter.name}}">
+              </td>
+              <td class="search-label">
+                所属专业：
+              </td>
+              <td>
+                <select name="specialityId" class="form-control input-sm"></select>
+              </td>
+              <td width="100%">
+                &nbsp;
+              </td>
+              <td>
+                <button type="submit" class="btn btn-primary btn-outline">搜索</button>
+              </td>
+              <td>
+                <button type="reset" class="btn btn-default ml">重置</button>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+    
+    <input type="hidden" data-js-comp="component/course/modify">
+    <input type="hidden" data-js-comp="component/course/delete">
+
     <div class="panel panel-default" data-auto-height='45'>
       <div class="panel-body p0">
         <div class="row">
@@ -71,11 +158,9 @@
             <table class='table tabel-striped'>
               <thead>
               <tr>
-                <th class="text-left">编号</th>
-                <th class="text-center">课程名称</th>
+                <th class="text-left">课程名称</th>
                 <th class="text-center">知识点数量</th>
                 <th class="text-center">附件数量</th>
-                <th class="text-center">所属学校</th>
                 <th class="text-center">所属专业</th>
                 <th class="text-center">创建时间</th>
                 <th class="text-center">修改时间</th>
@@ -88,10 +173,7 @@
               {{else}}
                 {{#each _DATA_.result}}
                   <tr data-id="{{{id}}}">
-                    <td class="text-left" width="64">
-                      {{padLeft id 6}}
-                    </td>
-                    <td class="text-center">
+                    <td class="text-left">
                       {{name}}
                     </td>
                     <td class="text-center">
@@ -101,10 +183,7 @@
                       {{attachmentCount}}
                     </td>
                     <td class="text-center">
-                      {{speciality.school.name}}
-                    </td>
-                    <td class="text-center">
-                      {{speciality.name}}
+                      {{speciality.name}} - {{speciality.school.name}}
                     </td>
                     <td class="text-center">
                       <small class="text-muted">{{date createdAt "yyyy-MM-dd HH:mm:ss"}}</small>
