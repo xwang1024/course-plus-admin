@@ -1,6 +1,7 @@
 'use strict';
 
 (function(window, document, $, module, exports, require, swal, Qiniu, QiniuConfig){
+  var select2 = require('component/common/select2');
   var Loader = require('component/common/loader');
 
   $('[name=createBtn]').click(function(e) {
@@ -46,7 +47,8 @@
     });
     $('#create').on('hidden.bs.modal', function() {
       $('#create').remove();
-    })
+    });
+    select2.init('school');
     $('#create').modal({backdrop: 'static', keyboard: false});
   });
 

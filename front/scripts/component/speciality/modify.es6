@@ -1,7 +1,9 @@
 'use strict';
 
 (function(window, document, $, module, exports, require, swal, Qiniu, QiniuConfig){
+  var select2 = require('component/common/select2');
   var Loader = require('component/common/loader');
+
   $('[name=modifyBtn]').click(function(e) {
     var id = $(this).parents('tr').data('id');
     console.log('[Modify]', id);
@@ -27,6 +29,19 @@
           var name = $(this).attr('name');
           if(data.result[name]) $(this).val(data.result[name]);
         });
+        if(data.result['schoolId']) {
+          $.ajax({
+            url: `/api/school/${id}`,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+              if(data.error) return;
+              select2.init('school', data.result.id, data.result.name);
+            }
+          });
+        } else {
+          select2.init('school');
+        }
       }
     });
 
@@ -39,6 +54,7 @@
           obj[item.name] = item.value;
           return obj;
         }, {});
+        if(data.schoolId) data.schoolId = parseInt(data.schoolId);
         
         Loader.show('#modify');
         $.ajax({
