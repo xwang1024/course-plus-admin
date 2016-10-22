@@ -39,7 +39,6 @@
     "bower_components/select2/dist/css/select2.css",
     "bower_components/select2/dist/js/select2.js",
     "bower_components/select2/dist/js/i18n/zh-CN.js",
-    "bower_components/select2-bootstrap-theme/dist/select2-bootstrap.css",
     "bower_components/handlebars/handlebars.min.js",
     "bower_components/sweetalert/dist/sweetalert.css",
     "bower_components/sweetalert/dist/sweetalert.min.js",
