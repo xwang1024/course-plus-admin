@@ -63,32 +63,34 @@
             <table class='table tabel-striped'>
               <thead>
               <tr>
-                <th class="text-left">编号</th>
                 <th class="text-left">名称</th>
-                <th class="text-left">类型</th>
-                <th class="text-left">引用次数</th>
+                <th class="text-center">类型</th>
+                <th class="text-center">引用次数</th>
                 <th class="text-center">创建时间</th>
                 <th class="text-center">修改时间</th>
                 <th class="text-right">操作</th>
               </tr>
               </thead>
               <tbody>
-              {{#unless _DATA_.users}}
+              {{#unless _DATA_.result}}
                 <tr><td colspan="7" class="text-muted text-center">找不到数据（T T）</td></tr>
               {{else}}
-                {{#each _DATA_.users}}
-                  <tr data-id="{{{_id}}}">
-                    <td class="text-left" data-username="{{username}}">
-                      {{username}}
-                    </td>
-                    <td class="text-center" data-role="{{role}}">
-                      {{role}}
-                    </td>
-                    <td class="text-center" data-is-active="{{isActive}}">
-                      {{isActive}}
+                {{#each _DATA_.result}}
+                  <tr data-id="{{{id}}}">
+                    <td class="text-left">
+                      {{name}}.{{ext}}
                     </td>
                     <td class="text-center">
-                      <small class="text-muted">{{date timeCreated "yyyy-MM-dd HH:mm:ss"}}</small>
+                      {{type}}
+                    </td>
+                    <td class="text-center">
+                      {{topicBodyCount}}
+                    </td>
+                    <td class="text-center">
+                      <small class="text-muted">{{date createdAt "yyyy-MM-dd HH:mm:ss"}}</small>
+                    </td>
+                    <td class="text-center">
+                      <small class="text-muted">{{date updatedAt "yyyy-MM-dd HH:mm:ss"}}</small>
                     </td>
                     <td class="text-right">
                       <a href="javascript:;" name="modifyBtn">修改</a>
@@ -99,6 +101,7 @@
               {{/unless}}
               </tbody>
             </table>
+            {{> pagination}}
           </div>
         </div>
       </div>
