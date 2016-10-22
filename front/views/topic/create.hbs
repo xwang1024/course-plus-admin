@@ -8,7 +8,7 @@
 
 <div class="content-heading">
   <div class="pull-right">
-    <button type="button" class="btn btn-sm btn-primary" name="submitBtn">提交知识点信息</button>
+    <button type="button" class="btn btn-sm btn-primary" name="submitBtn" data-js-comp="component/topic/create">提交</button>
   </div>
   <ol class="breadcrumb">
     <li>
@@ -24,24 +24,24 @@
 </div>
 <div class="row">
   <div class="col-md-8">
-    <div class="panel panel-default" id='edit-panel' data-js-comp="component/topic/create">
-      <form id='article-form'>
+    <div class="panel panel-default" id='edit-panel'>
+      <form id='topic-form'>
         <div class="panel-body">
           <div class="form-group">
             <label>名称</label>
             <input type="text" name='name' placeholder="请输入名称" class="form-control", required>
           </div>
           <div class="form-group">
+            <label>作者</label>
+            <input type="text" name='authorId' placeholder="请输入作者编号" class="form-control", required>
+          </div>
+          <div class="form-group">
             <label>内容</label>
             <div id="content-editor" style="width:100%; height: 300px;"></div>
           </div>
           <div class="form-group">
-            <label>作者</label>
-            <input type="text" name='authorId' placeholder="请输入作者" class="form-control", required>
-          </div>
-          <div class="form-group">
             <label>课程</label>
-            <input type="text" name='courseId' placeholder="请输入课程" class="form-control", required>
+            <input type="text" name='courseId' placeholder="请输入课程编号" class="form-control", required>
           </div>
         </div>
       </form>
@@ -49,13 +49,21 @@
   </div>
   <div class="col-md-4">
     <div class="panel panel-default" id='media-panel'>
-      <div class="panel-body">
+      <div class="panel-heading">
+        <div class="input-group">
+          <input type="text" class="form-control" name="assetName" placeholder="请输入文件名">
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" name="filterBtn"><em class="fa fa-search"></em></button>
+          </span>
+        </div>
+      </div>
+      <div class="panel-body pt0">
         <div>
           <ul class="nav nav-tabs">
-            <li name='images' class="active"><a href="javascript:;">图片</a></li>
-            <li name='audio'><a href="javascript:;">音频</a></li>
+            <li name='IMAGE' class="active"><a href="javascript:;">图片</a></li>
+            <li name='AUDIO'><a href="javascript:;">音频</a></li>
           </ul>
-          <div class="tab-content"  data-auto-height='30'>
+          <div class="tab-content" style="min-height:494px">
             <div role="tabpanel" class="tab-pane active" id="pictures">
               <div class="media-list">
                 

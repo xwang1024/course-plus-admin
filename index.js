@@ -10,6 +10,8 @@ var favicon      = require('serve-favicon');
 var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
+var qiniu        = require('qiniu');
+
 
 var initRoutes = require('./lib/routes');
 var initModels = require('./lib/models');
@@ -18,6 +20,11 @@ var config = require('./lib/config');
 
 var app = express();
 app.config = config;
+// 初始化七牛配置
+qiniu.conf.ACCESS_KEY = config.qiniu.ACCESS_KEY;
+qiniu.conf.SECRET_KEY = config.qiniu.SECRET_KEY;
+app.qiniu = qiniu;
+// 初始化数据库
 var sequelize = new Sequelize(app.config.mysql.url);
 app.db = sequelize;
 
