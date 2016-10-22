@@ -3,6 +3,7 @@
 (function(window, document, $, module, exports, require){
   function getSelect2Config(modelName) {
     return {
+      placeholder: "请选择",
       theme: "bootstrap",
       language: 'zh-CN',
       ajax: {
