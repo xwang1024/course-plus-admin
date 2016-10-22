@@ -1,6 +1,7 @@
 'use strict';
 
 (function(window, document, $, module, exports, require){
+  var select2 = require('component/common/select2');
   var Query = require('component/common/query');
   var query = new Query();
   
@@ -40,47 +41,9 @@
 
   initSelect2('school');
 
-  function getSelect2Config(modelName) {
-    return {
-      theme: "bootstrap",
-      language: 'zh-CN',
-      ajax: {
-        url: `/api/${modelName}`,
-        dataType: 'json',
-        delay: 300,
-        data: function (params) {
-          var query = {};
-          if(params.term) {
-            query['filter'] = {
-              name: {
-                $like: `%${params.term}%`
-              }
-            }
-          }
-          query['page'] = params.page;
-          return query;
-        },
-        processResults: function (data, params) {
-          params.page = params.page || 1;
-
-          return {
-            results: data.result.map((row) => {
-              return {
-                id: row.id,
-                text: row.name
-              }
-            })
-          };
-        },
-        cache: true
-      }
-    }
-  }
-
   function initSelect2(modelName) {
     if(!query.get('filter') || !query.get('filter')[`${modelName}Id`]) {
-      console.log(123)
-      $(`[name=${modelName}Id]`).select2(getSelect2Config(modelName));
+      select2.init(modelName);
     } else {
       var id = query.get('filter')[`${modelName}Id`];
       $.ajax({
@@ -89,11 +52,13 @@
         dataType: 'json',
         success: function (data) {
           if(data.error) return;
-          $(`[name=${modelName}Id]`).html(`<option name='${data.result.id}' selected>${data.result.name}</option>`);
-          $(`[name=${modelName}Id]`).select2(getSelect2Config(modelName));
+          select2.init(modelName, data.result.id, data.result.name);
         }
       });
     }
   }
+  
+
+  
 
 })(window, document, window['jQuery'], module, exports, require);
