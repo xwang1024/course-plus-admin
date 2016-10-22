@@ -2,10 +2,35 @@
 
 (function(window, document, $, module, exports, require, swal, Qiniu, QiniuConfig){
   var Loader = require('component/common/loader');
-  $('[name=createBtn]').click(function(e) {
-    $('body').append($('#create-tpl').html());
+  $('[name=modifyBtn]').click(function(e) {
+    var id = $(this).parents('tr').data('id');
+    console.log('[Modify]', id);
 
-    // 绑定创建操作
+    $('body').append($('#modify-tpl').html());
+
+    // 获取数据
+    Loader.show('#modify');
+    $.ajax({
+      url: `/api/school/${id}`,
+      type: 'GET',
+      dataType: 'json',
+      success: function (data) {
+        Loader.hide('#modify');
+        if(data.error) {
+          if(typeof data.error.message === 'object') {
+            data.error.message = data.error.message.join('\n');
+          }
+          return swal('错误', data.error.message, 'error');
+        }
+        // input赋值
+        $('#modify').find('input,select,textarea').each(function() {
+          var name = $(this).attr('name');
+          if(data.result[name]) $(this).val(data.result[name]);
+        });
+      }
+    });
+
+    // 绑定修改操作
     $('#school-form').on('submit', function (e) {
       if (e.isDefaultPrevented()) {
       } else {
@@ -15,15 +40,15 @@
           return obj;
         }, {});
         
-        Loader.show('#create');
+        Loader.show('#modify');
         $.ajax({
-          url: '/api/school',
-          type: 'POST',
+          url: `/api/school/${id}`,
+          type: 'PUT',
           data: JSON.stringify(data),
           dataType: 'json',
           contentType: 'application/json',
           success: function (data) {
-            Loader.hide('#create');
+            Loader.hide('#modify');
             if(data.error) {
               if(typeof data.error.message === 'object') {
                 data.error.message = data.error.message.join('\n');
@@ -32,7 +57,7 @@
             } else {
               swal({
                   title : "成功",
-                  text : "学校创建成功",
+                  text : "学校修改成功",
                   type : "success"
                 },
                 function () {
@@ -43,10 +68,10 @@
         });
       }
     });
-    $('#create').on('hidden.bs.modal', function() {
-      $('#create').remove();
+    $('#modify').on('hidden.bs.modal', function() {
+      $('#modify').remove();
     })
-    $('#create').modal({backdrop: 'static', keyboard: false});
+    $('#modify').modal({backdrop: 'static', keyboard: false});
   });
 
 })(window, document, window['jQuery'], module, exports, require, window['swal'], window['Qiniu'], window['QiniuConfig']);
