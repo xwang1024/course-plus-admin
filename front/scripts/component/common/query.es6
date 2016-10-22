@@ -1,56 +1,50 @@
 'use strict';
 
-/**
- * url_search管理组件，该组件对于url的操作会累积
- * @author xwang1024@126.com
- */
-class Query {
-  constructor(empty) {
-    this.init(empty);
-  }
+(function(window, document, $, module, exports, require){
+  var qs = require('component/common/qs');
 
-  init(empty) {
-    this.params = {};
-    if(!empty && window.location.search) {
-      window.location.search.substring(1).split('&').map(x => {
-        var sp = x.split('=');
-        this.params[decodeURIComponent(sp[0])] = decodeURIComponent(sp[1]);
-      });
+  /**
+   * url_search管理组件，该组件对于url的操作会累积
+   * @author xwang1024@126.com
+   */
+  class Query {
+    constructor(empty) {
+      this.init(empty);
     }
-    return this;
-  }
 
-  get(k) {
-    return this.params[k];
-  }
-
-  set(k, v) {
-    this.params[k] = v;
-    return this;
-  }
-
-  remove(k) {
-    delete this.params[k];
-    return this;
-  }
-
-  empty() {
-    this.params = {};
-    return this;
-  }
-
-  toString() {
-    var s = [], pv;
-    for(var k in this.params) {
-      if((pv=this.params[k])==='' || typeof pv==='null' || typeof pv==='undefined') {
-        delete this.params[k];
+    init(empty) {
+      this.params = {};
+      if(!empty && window.location.search) {
+        var decodedStr = decodeURIComponent(window.location.search).replace(/^\?/, '');
+        this.params = qs.parse(decodedStr);
       }
-      else {
-        s.push(encodeURIComponent(k)+'='+encodeURIComponent(pv));
-      }
+      return this;
     }
-    return (s.length > 0) ? ('?' + s.join('&')) : "";
-  }
-}
 
-module.exports = Query;
+    get(k) {
+      return this.params[k];
+    }
+
+    set(k, v) {
+      this.params[k] = v;
+      return this;
+    }
+
+    remove(k) {
+      delete this.params[k];
+      return this;
+    }
+
+    empty() {
+      this.params = {};
+      return this;
+    }
+
+    toString() {
+      return qs.stringify(this.params);
+    }
+  }
+
+  module.exports = Query;
+
+})(window, document, window['jQuery'], module, exports, require);

@@ -24,15 +24,6 @@
   .button-variant(#fff; @brand-pink; transparent;);
 }
 
-.btn-outline {
-  background-color: transparent;
-  border-color: #fff;
-  &:hover, &:focus {
-    background-color: #fff;
-    color: @brand-primary;
-  }
-}
-
 // Flat square button
 
 .btn-flat {
@@ -102,6 +93,7 @@
   .button-label-size(1px; 5px; @border-radius-small);
 }
 
+
 // Fixed width buttons
 // --------------------------------------------------
 
@@ -162,5 +154,25 @@
     height: @sz-lg;
     font-size: 18px;
     line-height: @sz-lg;
+  }
+}
+
+// Button Outline
+// -----------------------------------
+
+.btn-outline {
+  background-color: transparent;
+  &.btn-default { border-color: @btn-default-border; color: @btn-default-color !important; }
+  &.btn-primary { border-color: @brand-primary; color: @brand-primary; }
+  &.btn-success { border-color: @brand-success; color: @brand-success; }
+  &.btn-info { border-color: @brand-info; color: @brand-info; }
+  &.btn-warning { border-color: @brand-warning; color: @brand-warning; }
+  &.btn-danger { border-color: @brand-danger; color: @brand-danger; }
+  &.btn-inverse { border-color: @brand-inverse; color: @brand-inverse; }
+  &.btn-green { border-color: @brand-green; color: @brand-green; }
+  &.btn-purple { border-color: @brand-purple; color: @brand-purple; }
+  &.btn-pink { border-color: @brand-pink; color: @brand-pink; }
+  &:hover, &:focus, &:active, &.hover, &.focus, &.active {
+    color: #fff;
   }
 }

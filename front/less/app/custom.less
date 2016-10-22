@@ -89,3 +89,30 @@
     height: 100%;
   }
 }
+.panel-search {
+  overflow-x: hidden;
+  font-size: 12px;
+  table {
+    tr {
+      &:first-child {
+        td {
+          padding-top: 0px;
+        }
+      }
+      td {
+        padding-top: 9px;
+        &.search-label {
+          text-align: right;
+          padding-left: 16px;
+          &:first-child {
+            padding-left: 0;
+          }
+        }
+        input[type="text"],select {
+          width: 190px;
+        }
+        white-space: nowrap;
+      }
+    }
+  }
+}

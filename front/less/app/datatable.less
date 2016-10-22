@@ -4,6 +4,9 @@
 
 // Search filter
 .dataTables_filter {
+  @media @upto-desktop {
+    clear: both;
+  }
   input {
     margin-left: 10px
   }
@@ -12,6 +15,7 @@
 
 // Select length filter
 .dataTables_length {
+  float: left;
   select {
     margin-right: 10px
   }
@@ -20,12 +24,15 @@
 table.dataTable {
   tfoot > tr > th {
     color: #a1a2a3;
-    background: #f1f2f3;    
+    background: #f1f2f3;
   }
 }
 
 // datatable inside panels
 .panel {
+  .dataTables_wrapper {
+    overflow: auto;
+  }
   .dataTables_wrapper .row {
     margin: 10px 0;
   }
@@ -34,13 +41,29 @@ table.dataTable {
   }
 }
 
+.html5buttons {
+    float: none;
+    text-align: center;
+    margin-bottom: 10px;
+    @media @desktop {
+        float: right;
+        margin-left: 10px;
+    }
+}
 
-// 
+//
 // Custom ColVis extensions styles
-// 
+//
 
 // The main button
-.ColVis {
+div.ColVis {
+  @media @upto-desktop {
+    float: none;
+    text-align: center;
+    button.ColVis_Button, ul.ColVis_collection li {
+        float: none;
+    }
+  }
   .ColVis_Button {
     background-image: none;
     border: 1px solid #e1e2e3;
@@ -75,7 +98,7 @@ ul.ColVis_collection {
             color: #555;
           }
         }
-        input[type=checkbox]:checked + span, 
+        input[type=checkbox]:checked + span,
         input[type=radio]:checked + span {
           background-color: transparent;
         }
@@ -89,6 +112,7 @@ ul.ColVis_collection {
 
 // fix scrollbar
 .table-responsive {
+  border: 0;
   .dataTables_wrapper {
     .row {
       margin: 0;
@@ -97,11 +121,17 @@ ul.ColVis_collection {
 }
 
 // place controls correctly
-@media @upto-tablet {
+@media @upto-desktop {
+  .dataTables_length {
+    float: none;
+  }
+  div.dataTables_wrapper div.dataTables_length label,
   div.dataTables_filter label,
   div.dataTables_length label,
   div.dataTables_paginate {
     float: none;
+    text-align: center !important;
+    display: block;
     select {
       display: inline-block;
     }
@@ -112,5 +142,39 @@ ul.ColVis_collection {
       text-align: center;
       width: 100%;
     }
+  }
+}
+
+// Button info popup
+div.dt-button-info {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  margin-top: -100px;
+  margin-left: -200px;
+  background-color: white;
+  border: 2px solid @gray;
+  box-shadow: 3px 3px 8px rgba( 0, 0, 0, 0.3);
+  border-radius: 3px;
+  text-align: center;
+  z-index: 2100;
+
+  h2 {
+    padding: 0.5em;
+    margin: 0;
+    font-weight: normal;
+    border-bottom: 1px solid #ddd;
+    background-color: #f3f3f3;
+    &:before {
+      content: "\f00c";
+      font-family: FontAwesome;
+      color: @brand-success;
+      margin-right: 8px;
+    }
+  }
+
+  > div {
+    padding: 1em;
   }
 }
