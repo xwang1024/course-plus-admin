@@ -1,4 +1,83 @@
 {{#block "vendor_js"}}
+<script type="text/html" id='detail-tpl'>
+  <div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="detailLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="loader" style="display: none;">
+        <div class="whirl traditional"></div>
+      </div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times;</button>
+          <h4 class="modal-title" id="detailLabel">...</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-9">
+              <form class="form-horizontal p-20">
+                <div class="form-group">
+                  <div class="col-sm-2"><b>头像：</b></div>
+                  <div class="col-sm-10">
+                    <div style="width: 64px; height: 64px;">
+                      <img src="" id="avatar-img" style="max-width: 64px; max-height: 64px;">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-2"><b>姓名：</b></div>
+                  <div class="col-sm-10">
+                    <span name="name"></span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-2"><b>资料集：</b></div>
+                  <div class="col-sm-10">
+                    <a href="javascript:;" target="_blank" name="resourceDl">点击下载</a>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-2"><b>电话：</b></div>
+                  <div class="col-sm-10">
+                    <span name="phone"></span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-2"><b>邮件：</b></div>
+                  <div class="col-sm-10">
+                    <span name="email"></span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-2"><b>QQ：</b></div>
+                  <div class="col-sm-10">
+                    <span name="qq"></span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-2"><b>微信：</b></div>
+                  <div class="col-sm-10">
+                    <span name="wechat"></span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-2"><b>介绍：</b></div>
+                  <div class="col-sm-10">
+                    <span name="introduction"></span>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="col-md-3">
+              <img src="" id="avatar-img" style="max-width: 100%">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>
 {{/block}}
 
 <script>console.log({{{json}}})</script>
@@ -43,7 +122,7 @@
       </div>
     </div>
     
-    <input type="hidden" data-js-comp="component/author/modify">
+    <input type="hidden" data-js-comp="component/author/detail">
     <input type="hidden" data-js-comp="component/author/delete">
 
     <div class="panel panel-default" data-auto-height='45'>
@@ -73,7 +152,7 @@
                       <img src="{{{qiniuFile icon}}}" style="width: 64px" id="icon-preview">
                     </td>
                     <td class="text-left" width="64">
-                      {{padLeft id 6}}
+                      <a href="javascript:;" title="点击查看详情" name="detailBtn">{{padLeft id 6}}</a>
                     </td>
                     <td class="text-left">
                       {{name}}
@@ -92,7 +171,7 @@
                     </td>
                     <td class="text-right">
                       <a href="{{{qiniuFile resourceKey}}}" name="modifyBtn" style="display: block;">下载资料</a>
-                      <!--<a href="javascript:;" name="modifyBtn" style="display: block;">修改</a>-->
+                      <a href="/author/modify/{{{id}}}" name="modifyBtn" style="display: block;">修改</a>
                       <a href="javascript:;" name="deleteBtn" style="display: block;">删除</a>
                     </td>
                   </tr>

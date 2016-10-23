@@ -66,7 +66,7 @@
                 type : "success"
               },
               function () {
-                location.href="/admin/signIn"
+                location.href="/signIn"
               });
             }
           },
