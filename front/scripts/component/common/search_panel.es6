@@ -39,7 +39,7 @@
     }
   });
 
-  var modelNames = ['school', 'speciality'];
+  var modelNames = ['school', 'speciality', 'course'];
 
   modelNames.forEach((modelName) => {
     if($(`[name=${modelName}Id]`).length > 0) initSelect2(modelName);
@@ -56,11 +56,7 @@
         dataType: 'json',
         success: function (data) {
           if(data.error) return;
-          if(modelName === 'speciality') {
-            select2.init(modelName, data.result.id, `${data.result.name} - ${data.result.school.name}`);
-          } else {
-            select2.init(modelName, data.result.id, data.result.name);
-          }
+          select2.init(modelName, data.result.id, data.result.name);
         }
       });
     }

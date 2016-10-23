@@ -28,10 +28,7 @@
             results: data.result.map((row) => {
               var result = {
                 id: row.id,
-                text: row.name
-              }
-              if(modelName == 'speciality') {
-                result.text = `${row.name} - ${row.school.name}`
+                text: `[${window['padLeft'](row.id, 6)}] ${row.name}`
               }
               return result;
             })
@@ -45,7 +42,7 @@
   function initSelect2(modelName, initId, initText) {
     if(initId && initText) {
       console.log(initId, initText)
-      $(`[name=${modelName}Id]`).html(`<option value="${initId}">${initText}</option>`);
+      $(`[name=${modelName}Id]`).html(`<option value="${initId}">[${window['padLeft'](initId,6)}] ${initText}</option>`);
       $(`[name=${modelName}Id]`).val(initId);
     }
     $(`[name=${modelName}Id]`).select2(getSelect2Config(modelName));

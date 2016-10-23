@@ -20,7 +20,48 @@
             </div>
             <div class="form-group">
               <label>所属课程</label>
-              <input type="text" name='courseId' placeholder="请输入课程编号" class="form-control" required>
+              <select name="courseId" class="form-control" style="width: 100%" required></select>
+            </div>
+            <div class="form-group">
+              <label>素材文件</label>
+              <div class="input-group">
+                <span type="text" class="form-control" name="uploadFilePath"><span class="text-placeholder">请选择课程封面文件</span></span>
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" id="attachment-upload-btn">选择文件</button>
+                </span>
+              </div>
+            </div>
+          </div>
+            
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" name='submitBtn'>提交</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</script>
+<script type="text/html" id='modify-tpl'>
+  <div class="modal fade" id="modify" tabindex="-1" role="dialog" aria-labelledby="modifyLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="loader" style="display: none;">
+          <div class="whirl traditional"></div>
+        </div>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times;</button>
+          <h4 class="modal-title" id="modifyLabel">上传附件</h4>
+        </div>
+        <form id='attachment-form'>
+          <div class="modal-body">
+            <div class="form-group">
+              <label>附件名称</label>
+              <input type="text" name='name' placeholder="请输入附件名称" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>所属课程</label>
+              <select name="courseId" class="form-control" style="width: 100%" required></select>
             </div>
             <div class="form-group">
               <label>素材文件</label>
@@ -60,6 +101,41 @@
 </div>
 <div class="row">
   <div class="col-md-12">
+    <div class='panel panel-default panel-search' data-js-comp="component/common/search_panel">
+      <div class="panel-body">
+        <form id="search-form" class="form-inline">
+          <table>
+            <tr>
+              <td class="search-label">
+                附件名称：
+              </td>
+              <td>
+                <input type="text" class="form-control input-sm" name="name" placeholder="请输入" value="{{likeQuery _QUERY_.filter.name}}">
+              </td>
+              <td class="search-label">
+                所属课程：
+              </td>
+              <td>
+                <select name="courseId" class="form-control input-sm"></select>
+              </td>
+              <td width="100%">
+                &nbsp;
+              </td>
+              <td>
+                <button type="submit" class="btn btn-primary btn-outline">搜索</button>
+              </td>
+              <td>
+                <button type="reset" class="btn btn-default ml">重置</button>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+    
+    <input type="hidden" data-js-comp="component/attachment/modify">
+    <input type="hidden" data-js-comp="component/attachment/delete">
+
     <div class="panel panel-default" data-auto-height='45'>
       <div class="panel-body p0">
         <div class="row">

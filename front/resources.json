@@ -21,6 +21,9 @@
     ],
     "theme-a.css": [
       "less/themes/theme-a.less"
+    ],
+    "theme-e.css": [
+      "less/themes/theme-e.less"
     ]
   },
   "vendor": [

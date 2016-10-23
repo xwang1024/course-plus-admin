@@ -158,6 +158,7 @@
             <table class='table tabel-striped'>
               <thead>
               <tr>
+                <th class="text-left">编号</th>
                 <th class="text-left">课程名称</th>
                 <th class="text-center">知识点数量</th>
                 <th class="text-center">附件数量</th>
@@ -173,6 +174,9 @@
               {{else}}
                 {{#each _DATA_.result}}
                   <tr data-id="{{{id}}}">
+                    <td class="text-left" width="64">
+                      {{padLeft id 6}}
+                    </td>
                     <td class="text-left">
                       {{name}}
                     </td>
