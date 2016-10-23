@@ -39,13 +39,14 @@
   var bindings = {
     insertAsset: function() {
       let src       = $(this).data('src');
+      let id        = $(this).data('id');
       let key       = $(this).data('key');
       let assetType = $(this).data('assetType');
       console.log(src, key, assetType);
       if(assetType === 'IMAGE') {
-        editor.$txt.append(`<p><img style="max-width:100%;" src="${src}" data-key="${key}"><br></p><p><br></p>`);
+        editor.$txt.append(`<p><img style="max-width:100%;" src="${src}" asset-id="${id}" data-key="${key}"><br></p>`);
       } else if(assetType === 'AUDIO') {
-        editor.$txt.append(`<p><audio src="${src}" data-key="${key}" controls style="min-width: 70%;"><span class="text-muted">抱歉！浏览器不支持，请使用chrome等支持html5的现代浏览器。</span></audio><br></p><p><br></p>`);
+        editor.$txt.append(`<p><audio src="${src}" asset-id="${id}" data-key="${key}" controls style="min-width: 70%;"><span class="text-muted">抱歉！浏览器不支持，请使用chrome等支持html5的现代浏览器。</span></audio><br></p>`);
       }
     }
   }
@@ -93,7 +94,7 @@
                 </div>
                 <div class="media-body">
                   <p class="media-heading" style="width: 120px;" title="${item.name}">${item.name}</p>
-                  <button class="btn btn-primary btn-xs mt-sm" data-binding="insertAsset" data-src="${item.url}" data-key="${item.key}" data-asset-type="${item.type}">插入正文</button>
+                  <button class="btn btn-primary btn-xs mt-sm" data-binding="insertAsset" data-src="${item.url}" data-key="${item.key}" data-id="${item.id}" data-asset-type="${item.type}">插入正文</button>
                 </div>
               </div>
             `
@@ -109,7 +110,7 @@
                 </div>
                 <div class="media-body">
                   <p class="media-heading">${item.name}</p>
-                  <button class="btn btn-primary btn-xs mt-sm" data-binding="insertAsset" data-src="${item.url}" data-key="${item.key}" data-asset-type="${item.type}">插入正文</button>
+                  <button class="btn btn-primary btn-xs mt-sm" data-binding="insertAsset" data-src="${item.url}" data-key="${item.key}" data-id="${item.id}" data-asset-type="${item.type}">插入正文</button>
                 </div>
               </div>
             `
