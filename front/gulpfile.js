@@ -45,7 +45,7 @@ if(resource.script) {
           .on('error', handleError)
           .pipe($.wrapper({
             header: function(file) {
-              var moduleName = file.path.replace(__dirname, '').replace('\\scripts\\', '').replace(/(\.js)|(\.es6)$/, '').replace(/\\/g,'/');
+              var moduleName = file.path.replace(__dirname, '').replace('\\scripts\\', '').replace('/scripts/', '').replace(/(\.js)|(\.es6)$/, '').replace(/\\/g,'/');
               return 'this.require.define({"'+moduleName+'":function(exports, require, module){\n';
             },
             footer: '\n}});'
