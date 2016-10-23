@@ -36,7 +36,7 @@
             dataType: 'json',
             success: function (data) {
               if(data.error) return;
-              select2.init('school', data.result.id, data.result.name);
+              select2.init('school', data.result.id, data.result.name, '#modify');
             }
           });
         } else {

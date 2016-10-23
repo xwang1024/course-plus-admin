@@ -41,7 +41,7 @@
             dataType: 'json',
             success: function (data) {
               if(data.error) return;
-              select2.init('course', data.result.id, `${data.result.name} - ${data.result.school.name}`);
+              select2.init('course', data.result.id, data.result.name, '#modify');
             }
           });
         } else {

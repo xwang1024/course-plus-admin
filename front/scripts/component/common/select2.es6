@@ -39,11 +39,11 @@
     }
   }
 
-  function initSelect2(modelName, initId, initText) {
+  function initSelect2(modelName, initId, initText, container) {
     if(initId && initText) {
       console.log(initId, initText)
-      $(`[name=${modelName}Id]`).html(`<option value="${initId}">[${window['padLeft'](initId,6)}] ${initText}</option>`);
-      $(`[name=${modelName}Id]`).val(initId);
+      $(`${(container||'')+' '}[name=${modelName}Id]`).html(`<option value="${initId}">[${window['padLeft'](initId,6)}] ${initText}</option>`);
+      $(`${(container||'')+' '}[name=${modelName}Id]`).val(initId);
     }
     $(`[name=${modelName}Id]`).select2(getSelect2Config(modelName));
   }
