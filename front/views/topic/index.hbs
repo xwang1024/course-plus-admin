@@ -17,6 +17,47 @@
 </div>
 <div class="row">
   <div class="col-md-12">
+    <div class='panel panel-default panel-search' data-js-comp="component/common/search_panel">
+      <div class="panel-body">
+        <form id="search-form" class="form-inline">
+          <table>
+            <tr>
+              <td class="search-label">
+                名称：
+              </td>
+              <td>
+                <input type="text" class="form-control input-sm" name="name" placeholder="请输入" value="{{likeQuery _QUERY_.filter.name}}">
+              </td>
+              <td class="search-label">
+                作者：
+              </td>
+              <td>
+                <select name="authorId" class="form-control input-sm"></select>
+              </td>
+              <td class="search-label">
+                所属课程：
+              </td>
+              <td>
+                <select name="courseId" class="form-control input-sm"></select>
+              </td>
+              <td width="100%">
+                &nbsp;
+              </td>
+              <td>
+                <button type="submit" class="btn btn-primary btn-outline">搜索</button>
+              </td>
+              <td>
+                <button type="reset" class="btn btn-default ml">重置</button>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+    
+    <input type="hidden" data-js-comp="component/course/modify">
+    <input type="hidden" data-js-comp="component/course/delete">
+
     <div class="panel panel-default" data-auto-height='45'>
       <div class="panel-body p0">
         <div class="row">
