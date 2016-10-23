@@ -55,7 +55,6 @@
       </div>
     </div>
     
-    <input type="hidden" data-js-comp="component/course/modify">
     <input type="hidden" data-js-comp="component/course/delete">
 
     <div class="panel panel-default" data-auto-height='45'>
@@ -107,7 +106,7 @@
                       <small class="text-muted">{{date updatedAt "yyyy-MM-dd HH:mm:ss"}}</small>
                     </td>
                     <td class="text-right">
-                      <a href="javascript:;" name="modifyBtn">修改</a>
+                      <a href="/topic/modify/{{{id}}}" name="modifyBtn">修改</a>
                       <a href="javascript:;" name="deleteBtn">删除</a>
                     </td>
                   </tr>
