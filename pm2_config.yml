@@ -1,5 +1,4 @@
 apps:
   - script : "bin/www"
-    watch  : true
-    env    :
-      DEBUG  : "CoursePlus:*"
+    name   : 'course_plus_admin'
+    watch  : false
