@@ -2,7 +2,11 @@
 
 (function(window, document, $, module, exports, require, swal, wangEditor){
   var Loader = require('component/common/loader');
+  var select2 = require('component/common/select2');
   var editor = require('component/topic/editor');
+
+  select2.init('course');
+  select2.init('author');
 
   $('[name=submitBtn]').click(function() {
     $('#topic-form').submit();

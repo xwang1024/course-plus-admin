@@ -63,7 +63,7 @@
       data: {
         filter: {
           type: type,
-          name: name
+          name: name ? { $like: `%${name}%` } : undefined
         },
         page: page,
         pageSize: pageSize,
@@ -132,6 +132,11 @@
   // 搜索按钮
   $('[name=filterBtn]').click(function() {
     updateMediaList(1);
+  });
+  $('[name=assetName]').keypress(function(e) {
+    if(e.keyCode === 13) {
+      updateMediaList(1);
+    }
   });
 
   // 切换素材库标签
