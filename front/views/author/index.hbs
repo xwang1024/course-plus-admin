@@ -17,6 +17,35 @@
 </div>
 <div class="row">
   <div class="col-md-12">
+    <div class='panel panel-default panel-search' data-js-comp="component/common/search_panel">
+      <div class="panel-body">
+        <form id="search-form" class="form-inline">
+          <table>
+            <tr>
+              <td class="search-label">
+                姓名：
+              </td>
+              <td>
+                <input type="text" class="form-control input-sm" name="name" placeholder="请输入" value="{{likeQuery _QUERY_.filter.name}}">
+              </td>
+              <td width="100%">
+                &nbsp;
+              </td>
+              <td>
+                <button type="submit" class="btn btn-primary btn-outline">搜索</button>
+              </td>
+              <td>
+                <button type="reset" class="btn btn-default ml">重置</button>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+    
+    <input type="hidden" data-js-comp="component/author/modify">
+    <input type="hidden" data-js-comp="component/author/delete">
+
     <div class="panel panel-default" data-auto-height='45'>
       <div class="panel-body p0">
         <div class="row">
@@ -25,9 +54,9 @@
               <thead>
               <tr>
                 <th class="text-left">头像</th>
-                <th class="text-center">编号</th>
-                <th class="text-center">姓名</th>
+                <th class="text-left">姓名</th>
                 <th class="text-center">电话</th>
+                <th class="text-center">微信</th>
                 <th class="text-center">创建时间</th>
                 <th class="text-center">修改时间</th>
                 <th class="text-right">操作</th>
@@ -38,18 +67,18 @@
                 <tr><td colspan="7" class="text-muted text-center">找不到数据（T T）</td></tr>
               {{else}}
                 {{#each _DATA_.result}}
-                  <tr data-id="{{{id}}}">
+                  <tr data-id="{{{id}}}" height="82">
                     <td class="text-left" width="64">
                       <img src="{{{qiniuFile icon}}}" style="width: 64px" id="icon-preview">
                     </td>
-                    <td class="text-center" width="64">
-                      <a href="/author/{{{id}}}">{{padLeft id 6}}</a>
-                    </td>
-                    <td class="text-center">
+                    <td class="text-left">
                       {{name}}
                     </td>
                     <td class="text-center">
                       {{phone}}
+                    </td>
+                    <td class="text-center">
+                      {{wechat}}
                     </td>
                     <td class="text-center">
                       <small class="text-muted">{{date createdAt "yyyy-MM-dd HH:mm:ss"}}</small>
@@ -58,8 +87,9 @@
                       <small class="text-muted">{{date updatedAt "yyyy-MM-dd HH:mm:ss"}}</small>
                     </td>
                     <td class="text-right">
-                      <a href="javascript:;" name="modifyBtn">修改</a>
-                      <a href="javascript:;" name="deleteBtn">删除</a>
+                      <a href="{{{qiniuFile resourceKey}}}" name="modifyBtn" style="display: block;">下载资料</a>
+                      <!--<a href="javascript:;" name="modifyBtn" style="display: block;">修改</a>-->
+                      <a href="javascript:;" name="deleteBtn" style="display: block;">删除</a>
                     </td>
                   </tr>
                 {{/each}}
