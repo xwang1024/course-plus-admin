@@ -43,7 +43,7 @@
       multi_selection: false,
       filters: {
         mime_types : [
-          {title : "图片文件", extensions: "jpg,jpeg,gif,png"},
+          {title : "图片文件", extensions: "jpg,jpeg,png"},
           {title : "音频文件", extensions: "mp3,ogg"}
         ]
       },

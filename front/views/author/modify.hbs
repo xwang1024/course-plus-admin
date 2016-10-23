@@ -1,0 +1,102 @@
+{{#block "vendor_js"}}
+<script src="/vendor/plupload/js/plupload.full.min.js"></script>
+<script src="/vendor/qiniu/dist/qiniu.min.js"></script>
+{{/block}}
+
+<script>console.log({{{json}}})</script>
+
+<div class="content-heading">
+  <div class="pull-right">
+    <a href="javascript:;" class="btn btn-sm btn-primary" name="submitAuthorBtn">提交</a>
+  </div>
+  <ol class="breadcrumb">
+    <li>
+      <span>管理</span>
+    </li>
+    <li>
+      <a href="/author">作者管理</a>
+    </li>
+    <li class="active">
+      <span>修改作者</span>
+    </li>
+  </ol>
+</div>
+
+<input type="hidden" name="id" value="{{_DATA_.result.id}}">
+
+<div class="panel panel-default" data-js-comp="component/author/modify">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-3" id='avatar-container'>
+        <p class="lead bb pb-sm">形象</p>
+        <div id="avatar-upload-btn" class="btn btn-default pt0 ph0 bg-gray" style="width:100%; padding-bottom: 130%;">
+          <div style="position: absolute; top:0; bottom:0; left:0; right:0;" id="avatar-preview">
+            <img src="{{{_DATA_.result.avatarUrl}}}" id="avatar-img" style="max-width: 100%;max-height: 100%">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <p class="lead bb pb-sm">个人信息</p>
+        <form class="form-horizontal p-20" id="author-form">
+          <div class="form-group">
+            <label class="col-lg-2 control-label">头像</label>
+            <div class="col-lg-8" id='icon-container'>
+              <div id="icon-upload-btn" class="btn btn-default p0 bg-gray" style="width:64px; height: 64px;">
+                <div style="line-height: 64px;" id="icon-preview">
+                  <img src="{{{_DATA_.result.iconUrl}}}" id="avatar-img" style="width: 64px; height: 64px">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">姓名</label>
+            <div class="col-lg-8">
+              <input type="text" placeholder="请输入姓名" class="form-control" name="name" value="{{_DATA_.result.name}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">资料集</label>
+            <div class="col-lg-8">
+              <div class="input-group">
+                <span type="text" class="form-control" name="uploadFilePath">{{_DATA_.result.resourceKey}}</span>
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" id="resource-upload-btn">选择文件</button>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">电话</label>
+            <div class="col-lg-8">
+              <input type="text" placeholder="请输入电话" class="form-control" name="phone" value="{{_DATA_.result.phone}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">邮件</label>
+            <div class="col-lg-8">
+              <input type="text" placeholder="请输入邮件" class="form-control" name="email" value="{{_DATA_.result.email}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">QQ</label>
+            <div class="col-lg-8">
+              <input type="text" placeholder="请输入QQ" class="form-control" name="qq" value="{{_DATA_.result.qq}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">微信</label>
+            <div class="col-lg-8">
+              <input type="text" placeholder="请输入微信" class="form-control" name="wechat" value="{{_DATA_.result.wechat}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">介绍</label>
+            <div class="col-lg-8">
+              <textarea placeholder="请输入介绍" class="form-control" style="height: 100px; resize: none;" name="introduction">{{_DATA_.result.introduction}}</textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -46,7 +46,7 @@
       multi_selection: false,
       filters: {
         mime_types : [
-          {title : "图片文件", extensions: "jpg,jpeg,gif,png"}
+          {title : "图片文件", extensions: "jpg,jpeg,png"}
         ]
       },
       auto_start: false,
