@@ -33,7 +33,7 @@
           var name = $(this).attr('name');
           if(data.result[name]) $(this).val(data.result[name]);
         });
-        $('#modify [name=uploadFilePath]').text(data.result['cover']);
+        $('#modify [name=uploadFilePath]').text(data.result['key']);
         if(data.result['courseId']) {
           $.ajax({
             url: `/api/course/${data.result['courseId']}`,
@@ -106,7 +106,7 @@
   function bindUpload() {
     uploader = Qiniu.uploader({
       runtimes: 'html5,flash,html4',
-      browse_button: 'cover-upload-btn',
+      browse_button: 'attachment-upload-btn',
       max_file_size: '30mb',
       flash_swf_url: '/static/js/plupload/Moxie.swf',
       dragdrop: false,
@@ -138,7 +138,7 @@
         FileUploaded: function(up, file, info) {
           var info = JSON.parse(info);
           // 处理form信息
-          formData['cover']        = info.key;
+          formData['key']        = info.key;
           formData['courseId'] = parseInt(formData['courseId']);
           
           $.ajax({
