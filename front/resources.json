@@ -19,11 +19,8 @@
     "bootstrap.css": [
       "less/bootstrap.less"
     ],
-    "theme-a.css": [
-      "less/themes/theme-a.less"
-    ],
-    "theme-e.css": [
-      "less/themes/theme-e.less"
+    "theme.css": [
+      "less/themes/theme.less"
     ]
   },
   "vendor": [
