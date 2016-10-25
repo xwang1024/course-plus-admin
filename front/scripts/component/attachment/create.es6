@@ -2,10 +2,13 @@
 
 (function(window, document, $, module, exports, require, swal, Qiniu, QiniuConfig){
   var Loader = require('component/common/loader');
+  var select2 = require('component/common/select2');
+
   var uploader;
   var formData = {};
   $('[name=createBtn]').click(function(e) {
     $('body').append($('#create-tpl').html());
+    select2.init('course');
     bindSubmit();
     bindUpload();
     $('#create').on('hidden.bs.modal', function() {
