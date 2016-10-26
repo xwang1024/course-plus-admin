@@ -2,121 +2,22 @@
 
 (function(window, document, $, module, exports, require, swal, Qiniu, QiniuConfig, mOxie){
   var Loader = require('component/common/loader');
+  var ImgUploader = require('component/common/img_uploader');
   
-  var avatarReady, iconReady, resourceReady;
+  var resourceReady;
   var avatarKey, iconKey, attachmentKey, ext;
 
-  // 形象上传器
-  var avatarUploader = Qiniu.uploader({
-    runtimes: 'html5,flash,html4',
-    browse_button: 'avatar-upload-btn',
-    container: 'avatar-container',
-    max_file_size: '5mb',
-    dragdrop: false,
-    chunk_size: '4mb',
-    uptoken_url: '/api/qiniu/uptoken',
-    unique_names: true,
-    domain: QiniuConfig.domain,
-    multi_selection: false,
-    filters: {
-      mime_types : [
-        {title : "图片文件", extensions: "jpg,jpeg,png"}
-      ]
-    },
-    auto_start: false,
-    init: {
-      FilesAdded: function(up, files) {
-        Loader.show();
-        var file = files[0];
-        var img = new mOxie.Image();
-        img.onload = function() {
-          $('#avatar-upload-btn').find('.fa').hide();
-          $('#avatar-upload-btn').find('canvas').remove();
-          $('#avatar-upload-btn').find('img').remove();
-          this.embed($('#avatar-preview').get(0));
-          Loader.hide();
-        };
-        img.onembedded = function() {
-          this.destroy();
-        };
-        img.onerror = function() {
-          this.destroy();
-        };
-        img.load(file.getSource());
-        avatarReady = true;
-      },
-      BeforeUpload: function(up, file) {
-      },
-      FileUploaded: function(up, file, info) {
-        var info = JSON.parse(info);
-        avatarKey = info.key;
-        if(iconReady) iconUploader.start();
-        else if(resourceReady) resourceUploader.start();
-        else $('#author-form').submit();
-      },
-      Error: function(up, err, errTip) {
-        Loader.hide();
-        alert(errTip);
-      }
-    }
+  var avatarUploader = new ImgUploader('avatar', 170, 215, (key) => {
+    avatarKey = key;
+    if(iconUploader.hasFile()) iconUploader.start();
+    else if(resourceReady) resourceUploader.start();
+    else $('#author-form').submit();
   });
 
-  // 头像上传器
-  var iconUploader = Qiniu.uploader({
-    runtimes: 'html5,flash,html4',
-    browse_button: 'icon-upload-btn',
-    max_file_size: '5mb',
-    flash_swf_url: '/static/js/plupload/Moxie.swf',
-    dragdrop: false,
-    chunk_size: '4mb',
-    uptoken_url: '/api/qiniu/uptoken',
-    unique_names: true,
-    domain: QiniuConfig.domain,
-    multi_selection: false,
-    filters: {
-      mime_types : [
-        {title : "图片文件", extensions: "jpg,jpeg,png"}
-      ]
-    },
-    auto_start: false,
-    init: {
-      FilesAdded: function(up, files) {
-        Loader.show();
-        var file = files[0];
-        var img = new mOxie.Image();
-        img.onload = function() {
-          $('#icon-upload-btn').find('.fa').hide();
-          $('#icon-upload-btn').find('canvas').remove();
-          $('#icon-upload-btn').find('img').remove();
-          this.embed($('#icon-preview').get(0), {
-            width: 64,
-            height: 64,
-            crop: false
-          });
-          Loader.hide();
-        };
-        img.onembedded = function() {
-          this.destroy();
-        };
-        img.onerror = function() {
-          this.destroy();
-        };
-        img.load(file.getSource());
-        iconReady = true;
-      },
-      BeforeUpload: function(up, file) {
-      },
-      FileUploaded: function(up, file, info) {
-        var info = JSON.parse(info);
-        iconKey = info.key;
-        if(resourceReady) resourceUploader.start();
-        else $('#author-form').submit();
-      },
-      Error: function(up, err, errTip) {
-        Loader.hide();
-        alert(errTip);
-      }
-    }
+  var iconUploader = new ImgUploader('icon', 64, 64, (key) => {
+    iconKey = key;
+    if(resourceReady) resourceUploader.start();
+    else $('#author-form').submit();
   });
 
   // 资料上传器
@@ -160,8 +61,8 @@
   $('[name=submitAuthorBtn]').click(function() {
     // 上传形象 -> 上传头像 -> 上传资料 -> 提交表单
     Loader.show();
-    if(avatarReady) avatarUploader.start();
-    else if(iconReady) iconUploader.start();
+    if(avatarUploader.hasFile()) avatarUploader.start();
+    else if(iconUploader.hasFile()) iconUploader.start();
     else if(resourceReady) resourceUploader.start();
     else $('#author-form').submit();
   })

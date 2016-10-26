@@ -1,0 +1,30 @@
+<script type="text/html" id='crop-tpl'>
+  <div class="modal fade" id="crop" tabindex="-1" role="dialog" aria-labelledby="cropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="loader" style="display: none;">
+        <div class="whirl traditional"></div>
+      </div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times;</button>
+          <h4 class="modal-title" id="cropLabel">图片裁剪</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6" style="height: 500px;">
+              <img src="" alt="" id="img-crop" style="width: 100%;">
+            </div>
+            <div class="col-md-6">
+              <div class="img-preview img-crop-preview"></div>
+            </div>
+          </div>
+          
+        </div>
+          
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>

@@ -33,8 +33,8 @@
           }
         });
         $('#detail #avatar-img').attr('src', data.result.avatarUrl);
-        $('#detail #icon-img').attr('src', data.result.iconThumbnailUrl);
-        $('#detail [name=resourceDl]').attr('src', data.result.resourceUrl);
+        $('#detail #icon-img').attr('src', data.result.iconUrl);
+        // $('#detail [name=resourceDl]').attr('src', data.result.resourceUrl);
       }
     });
 
