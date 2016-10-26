@@ -137,6 +137,7 @@
                 <th class="text-left">姓名</th>
                 <th class="text-center">电话</th>
                 <th class="text-center">微信</th>
+                <th class="text-center">联络价格</th>
                 <th class="text-center">创建时间</th>
                 <th class="text-center">修改时间</th>
                 <th class="text-right">操作</th>
@@ -164,13 +165,16 @@
                       {{wechat}}
                     </td>
                     <td class="text-center">
+                      <span class="text-warning">￥ {{price contactCost}}</span>
+                    </td>
+                    <td class="text-center">
                       <small class="text-muted">{{date createdAt "yyyy-MM-dd HH:mm:ss"}}</small>
                     </td>
                     <td class="text-center">
                       <small class="text-muted">{{date updatedAt "yyyy-MM-dd HH:mm:ss"}}</small>
                     </td>
                     <td class="text-right">
-                      <a href="{{{qiniuFile resourceKey}}}" name="modifyBtn" style="display: block;">下载资料</a>
+                      <a href="{{{qiniuFile attachment.key}}}" target="_blank" name="modifyBtn" style="display: block;">下载资料</a>
                       <a href="/author/modify/{{{id}}}" name="modifyBtn" style="display: block;">修改</a>
                       <a href="javascript:;" name="deleteBtn" style="display: block;">删除</a>
                     </td>

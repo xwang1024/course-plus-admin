@@ -4,7 +4,7 @@
   var Loader = require('component/common/loader');
   
   var avatarReady, iconReady, resourceReady;
-  var avatarKey, iconKey, resourceKey;
+  var avatarKey, iconKey, attachmentKey, ext;
 
   // 形象上传器
   var avatarUploader = Qiniu.uploader({
@@ -146,7 +146,8 @@
       },
       FileUploaded: function(up, file, info) {
         var info = JSON.parse(info);
-        resourceKey = info.key;
+        attachmentKey = info.key;
+        ext = /^.*\.([^\.]*)$/.exec(file.name)[1];
         $('#author-form').submit();
       },
       Error: function(up, err, errTip) {
@@ -173,9 +174,15 @@
         obj[item.name] = item.value;
         return obj;
       }, {});
-      data.avatar        = avatarKey;
-      data.icon          = iconKey;
-      data.resourceKey   = resourceKey;
+      data.avatar      = avatarKey;
+      data.icon        = iconKey;
+      data.contactCost = data.contactCost ? Math.round(parseInt(data.contactCost)*100) : 0;
+      data.attachment = {
+        name: data.name+'的资料',
+        ext: ext,
+        key: attachmentKey,
+        cost: data.attachmentCost ? Math.round(parseInt(data.attachmentCost)*100) : 0
+      };
       
       var id = $('[name=id]').val();
       $.ajax({
