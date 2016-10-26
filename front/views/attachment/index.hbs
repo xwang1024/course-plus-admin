@@ -23,7 +23,11 @@
               <select name="courseId" class="form-control" style="width: 100%" required></select>
             </div>
             <div class="form-group">
-              <label>素材文件</label>
+              <label>价格</label>
+              <input type="number" name='cost' placeholder="请输入价格" class="form-control" min="0" max="1000000">
+            </div>
+            <div class="form-group">
+              <label>文件</label>
               <div class="input-group">
                 <span type="text" class="form-control" name="uploadFilePath"><span class="text-placeholder">请选择课程封面文件</span></span>
                 <span class="input-group-btn">
@@ -51,7 +55,7 @@
         </div>
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times;</button>
-          <h4 class="modal-title" id="modifyLabel">上传附件</h4>
+          <h4 class="modal-title" id="modifyLabel">修改附件</h4>
         </div>
         <form id='attachment-form'>
           <div class="modal-body">
@@ -64,7 +68,12 @@
               <select name="courseId" class="form-control" style="width: 100%" required></select>
             </div>
             <div class="form-group">
-              <label>素材文件</label>
+              <label>价格</label>
+              <span class="text-muted pull-right">价格最高计1,000,000元</span>
+              <input type="number" name='cost' placeholder="请输入价格" class="form-control" min="0" max="1000000">
+            </div>
+            <div class="form-group">
+              <label>文件</label>
               <div class="input-group">
                 <span type="text" class="form-control" name="uploadFilePath"><span class="text-placeholder">请选择课程封面文件</span></span>
                 <span class="input-group-btn">
@@ -118,6 +127,12 @@
               <td>
                 <select name="courseId" class="form-control input-sm"></select>
               </td>
+              <td class="search-label">
+                所属作者：
+              </td>
+              <td>
+                <select name="authorId" class="form-control input-sm"></select>
+              </td>
               <td width="100%">
                 &nbsp;
               </td>
@@ -145,8 +160,8 @@
               <tr>
                 <th class="text-left">名称</th>
                 <th class="text-center">所属课程</th>
-                <th class="text-center">所属学校</th>
-                <th class="text-center">所属专业</th>
+                <th class="text-center">所属作者</th>
+                <th class="text-center">价格</th>
                 <th class="text-center">创建时间</th>
                 <th class="text-center">修改时间</th>
                 <th class="text-right">操作</th>
@@ -159,16 +174,16 @@
                 {{#each _DATA_.result}}
                   <tr data-id="{{{id}}}">
                     <td class="text-left">
-                      {{name}}.{{ext}}
+                      <a href="{{qiniuFile key}}" target="_blank">{{name}}.{{ext}}</a>
                     </td>
                     <td class="text-center">
-                      {{course.name}}
+                      {{#if course}} {{course.name}} {{else}} - {{/if}}
                     </td>
                     <td class="text-center">
-                      {{course.speciality.school.name}}
+                      {{#if author}} {{author.name}} {{else}} - {{/if}}
                     </td>
                     <td class="text-center">
-                      {{course.speciality.name}}
+                      <span class="text-warning">￥ {{price cost}}</span>
                     </td>
                     <td class="text-center">
                       <small class="text-muted">{{date createdAt "yyyy-MM-dd HH:mm:ss"}}</small>
@@ -178,7 +193,11 @@
                     </td>
                     <td class="text-right">
                       <a href="javascript:;" name="modifyBtn">修改</a>
+                      {{#if authorId}}
+                      <a href="javascript:;" title="该素材与作者关联，无法删除" disabled>删除</a>
+                      {{else}}
                       <a href="javascript:;" name="deleteBtn">删除</a>
+                      {{/if}}
                     </td>
                   </tr>
                 {{/each}}

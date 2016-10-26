@@ -51,7 +51,7 @@
           <div class="form-group">
             <label class="col-lg-2 control-label">姓名</label>
             <div class="col-lg-8">
-              <input type="text" placeholder="请输入姓名" class="form-control" name="name" value="{{_DATA_.result.name}}">
+              <input type="text" placeholder="请输入姓名" class="form-control" name="name" value="{{_DATA_.result.name}}" require>
             </div>
           </div>
           <div class="form-group">
@@ -70,16 +70,16 @@
             </div>
             <label class="col-lg-1 control-label">价格</label>
             <div class="col-lg-2">
-              <input type="number" placeholder="请输入" class="form-control" name="attachmentCost" min="0" max="1000000" value="{{#if _DATA_.result.attachment}}{{price _DATA_.result.attachment.cost}}{{/if}}">
+              <input type="number" placeholder="请输入" class="form-control" name="attachmentCost" min="0" max="1000000" value="{{#if _DATA_.result.attachment}}{{price _DATA_.result.attachment.cost}}{{/if}}" require>
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-2 control-label">联系价格</label>
             <div class="col-lg-5">
-              <input type="number" placeholder="请输入联络价格" class="form-control" name="contactCost" min="0" max="1000000" value="{{price _DATA_.result.contactCost}}">
+              <input type="number" placeholder="请输入联络价格" class="form-control" name="contactCost" min="0" max="1000000" value="{{price _DATA_.result.contactCost}}" require>
             </div>
             <div class="col-lg-3 pt-sm">
-              <small class="text-muted">价格最高计1000000元</small>
+              <small class="text-muted">价格最高计1,000,000元</small>
             </div>
           </div>
           <div class="form-group">

@@ -34,6 +34,7 @@
           if(data.result[name]) $(this).val(data.result[name]);
         });
         $('#modify [name=uploadFilePath]').text(data.result['key']);
+        $('#modify [name=cost]').val((data.result['cost']/100).toFixed(2));
         if(data.result['courseId']) {
           $.ajax({
             url: `/api/course/${data.result['courseId']}`,
@@ -45,7 +46,9 @@
             }
           });
         } else {
-          select2.init('course');
+          var $formGroup = $('#modify [name=courseId]').parents('.form-group');
+          $formGroup.find('label').after('<span class="text-warning pull-right">作者资料集无法关联课程</span>')
+          $formGroup.find('select').prop('disabled', true);
         }
       }
     });
@@ -138,8 +141,17 @@
         FileUploaded: function(up, file, info) {
           var info = JSON.parse(info);
           // 处理form信息
-          formData['key']        = info.key;
-          formData['courseId'] = parseInt(formData['courseId']);
+          formData['key']  = info.key;
+          if(formData['courseId']) {
+            formData['courseId'] = parseInt(formData['courseId']);
+          }
+          formData['cost'] = formData['cost'] ? Math.round(parseInt(formData['cost'])*100) : 0;
+          if(formData['cost']<0) {
+            formData['cost'] = 0;
+          }
+          if(formData['cost'] > 100000000) {
+            formData['cost'] = 100000000;
+          }
           
           $.ajax({
             url: `/api/attachment/${id}`,

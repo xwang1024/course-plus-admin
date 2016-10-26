@@ -31,7 +31,7 @@
             } else {
               swal({
                 title : "成功",
-                text : "该课程已删除",
+                text : "该作者已删除",
                 type : "success"
               },
               function () {

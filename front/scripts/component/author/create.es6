@@ -165,6 +165,12 @@
       data.avatar      = avatarKey;
       data.icon        = iconKey;
       data.contactCost = data.contactCost ? Math.round(parseInt(data.contactCost)*100) : 0;
+      if(data.contactCost<0) {
+        data.contactCost = 0;
+      }
+      if(data.contactCost > 100000000) {
+        data.contactCost = 100000000;
+      }
       
       data.attachment = {
         name: data.name+'的资料',
@@ -172,6 +178,13 @@
         key: attachmentKey,
         cost: data.attachmentCost ? Math.round(parseInt(data.attachmentCost)*100) : 0
       };
+
+      if(data.attachment.cost<0) {
+        data.attachment.cost = 0;
+      }
+      if(data.attachment.cost > 1000000) {
+        data.attachment.cost = 1000000;
+      }
       
       $.ajax({
         url: '/api/author',

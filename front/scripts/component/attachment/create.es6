@@ -63,6 +63,13 @@
           formData['key']      = info.key;
           formData['ext']      = /^.*\.([^\.]*)$/.exec(file.name)[1];
           formData['courseId'] = parseInt(formData['courseId']);
+          formData['cost'] = formData['cost'] ? Math.round(parseInt(formData['cost'])*100) : 0;
+          if(formData['cost']<0) {
+            formData['cost'] = 0;
+          }
+          if(formData['cost'] > 100000000) {
+            formData['cost'] = 100000000;
+          }
 
           $.ajax({
             url: '/api/attachment',

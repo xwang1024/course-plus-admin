@@ -183,6 +183,20 @@
         key: attachmentKey,
         cost: data.attachmentCost ? Math.round(parseInt(data.attachmentCost)*100) : 0
       };
+      if(data.contactCost<0) {
+        data.contactCost = 0;
+      }
+      if(data.contactCost > 100000000) {
+        data.contactCost = 100000000;
+      }
+      
+
+      if(data.attachment.cost<0) {
+        data.attachment.cost = 0;
+      }
+      if(data.attachment.cost > 100000000) {
+        data.attachment.cost = 100000000;
+      }
       
       var id = $('[name=id]').val();
       $.ajax({
