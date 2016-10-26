@@ -45,16 +45,16 @@
             </select>
           </div>
           <div class="form-group">
-            <label>内容</label>
-            <div id="content-editor" style="width:100%; height: 300px;">{{{_DATA_.result.topicBody.content}}}</div>
-          </div>
-          <div class="form-group">
             <label>课程</label>
             <select name="courseId" class="form-control" required>
               {{#if _DATA_.result.course}}
               <option value="{{_DATA_.result.course.id}}">[{{padLeft _DATA_.result.course.id 6}}] {{_DATA_.result.course.name}}</option>
               {{/if}}
             </select>
+          </div>
+          <div class="form-group">
+            <label>内容</label>
+            <div id="content-editor" style="width:100%; height: 300px;">{{{_DATA_.result.topicBody.content}}}</div>
           </div>
         </div>
       </form>
