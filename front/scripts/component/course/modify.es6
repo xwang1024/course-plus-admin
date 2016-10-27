@@ -3,10 +3,10 @@
 (function(window, document, $, module, exports, require, swal, Qiniu, QiniuConfig){
   var select2 = require('component/common/select2');
   var Loader = require('component/common/loader');
+  var ImgUploader = require('component/common/img_uploader');
   
   var id;
   var uploader;
-  var fileReady = false;
   var formData = {};
   $('[name=modifyBtn]').click(function(e) {
     id = $(this).parents('tr').data('id');
@@ -33,7 +33,7 @@
           var name = $(this).attr('name');
           if(data.result[name]) $(this).val(data.result[name]);
         });
-        $('#modify [name=uploadFilePath]').text(data.result['cover']);
+        $('#modify #cover-upload-btn .origin-preview').attr("src", data.result['coverUrl']);
         if(data.result['specialityId']) {
           $.ajax({
             url: `/api/speciality/${data.result['specialityId']}`,
@@ -69,7 +69,7 @@
           return obj;
         }, {});
         // 上传文件
-        if(fileReady) {
+        if(uploader.hasFile()) {
           uploader.start();
         } else {
           formData['specialityId'] = parseInt(formData['specialityId']);
@@ -89,7 +89,7 @@
               } else {
                 swal({
                     title : "成功",
-                    text : "专业修改成功",
+                    text : "课程修改成功",
                     type : "success"
                   },
                   function () {
@@ -104,74 +104,36 @@
   }
 
   function bindUpload() {
-    uploader = Qiniu.uploader({
-      runtimes: 'html5,flash,html4',
-      browse_button: 'cover-upload-btn',
-      max_file_size: '30mb',
-      flash_swf_url: '/static/js/plupload/Moxie.swf',
-      dragdrop: false,
-      chunk_size: '4mb',
-      uptoken_url: '/api/qiniu/uptoken',
-      unique_names: true,
-      domain: QiniuConfig.domain,
-      multi_selection: false,
-      filters: {
-        mime_types : [
-          {title : "图片文件", extensions: "jpg,jpeg,png"}
-        ]
-      },
-      auto_start: false,
-      init: {
-        FilesAdded: function(up, files) {
-          if(files.length === 0 ) {
-            $('[name=uploadFilePath]').empty();
-            fileReady = false;
-          } else {
-            var fileName = files[0].name;
-            $('[name=uploadFilePath]').text(fileName);
-            fileReady = true;
-          }
-        },
-        BeforeUpload: function(up, file) {
-          Loader.show('#create');
-        },
-        FileUploaded: function(up, file, info) {
-          var info = JSON.parse(info);
-          // 处理form信息
-          formData['cover']        = info.key;
-          formData['specialityId'] = parseInt(formData['specialityId']);
-          
-          $.ajax({
-            url: `/api/course/${id}`,
-            type: 'PUT',
-            data: JSON.stringify(formData),
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function (data) {
-              Loader.hide('#modify');
-              if(data.error) {
-                if(typeof data.error.message === 'object') {
-                  data.error.message = data.error.message.join('\n');
-                }
-                return swal('错误', data.error.message, 'error');
-              } else {
-                swal({
-                    title : "成功",
-                    text : "专业修改成功",
-                    type : "success"
-                  },
-                  function () {
-                    location.reload();
-                  });
-              }
+    uploader = new ImgUploader('cover', 150, 210, (key)=> {
+      console.log(key)
+      formData['cover']        = key;
+      formData['specialityId'] = parseInt(formData['specialityId']);
+      
+      $.ajax({
+        url: `/api/course/${id}`,
+        type: 'PUT',
+        data: JSON.stringify(formData),
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+          Loader.hide('#modify');
+          if(data.error) {
+            if(typeof data.error.message === 'object') {
+              data.error.message = data.error.message.join('\n');
             }
-          });
-        },
-        Error: function(up, err, errTip) {
-          Loader.hide('#create');
-          alert(errTip);
+            return swal('错误', data.error.message, 'error');
+          } else {
+            swal({
+                title : "成功",
+                text : "课程修改成功",
+                type : "success"
+              },
+              function () {
+                location.reload();
+              });
+          }
         }
-      }
+      });
     });
   }
 
