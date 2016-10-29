@@ -1,0 +1,92 @@
+{{#block "vendor_js"}}
+<link rel="stylesheet" type="text/css" href="/vendor/wangEditor/dist/css/wangEditor.min.css">
+{{/block}}
+
+{{#block "vendor_js"}}
+<script src="/vendor/wangEditor/dist/js/wangEditor.min.js"></script>
+{{/block}}
+
+<script>console.log({{{json}}})</script>
+
+<div class="content-heading">
+  <div class="pull-right">
+    <button type="button" class="btn btn-sm btn-primary" name="submitBtn" data-js-comp="component/topic/modify">提交</button>
+  </div>
+  <ol class="breadcrumb">
+    <li>
+      <span>管理</span>
+    </li>
+    <li>
+      <a href="/topic">知识点管理</a>
+    </li>
+    <li class="active">
+      <span>修改知识点</span>
+    </li>
+  </ol>
+</div>
+
+<input type="hidden" name="id" value="{{_DATA_.result.id}}">
+
+<div class="row">
+  <div class="col-md-8">
+    <div class="panel panel-default" id='edit-panel'>
+      <form id='topic-form'>
+        <div class="panel-body">
+          <div class="form-group">
+            <label>名称</label>
+            <input type="text" name='name' placeholder="请输入名称" class="form-control" value="{{_DATA_.result.name}}" required>
+          </div>
+          <div class="form-group">
+            <label>作者</label>
+            <select name="authorId" class="form-control" required>
+              {{#if _DATA_.result.author}}
+              <option value="{{_DATA_.result.author.id}}">[{{padLeft _DATA_.result.author.id 6}}] {{_DATA_.result.author.name}}</option>
+              {{/if}}
+            </select>
+          </div>
+          <div class="form-group">
+            <label>课程</label>
+            <select name="courseId" class="form-control" required>
+              {{#if _DATA_.result.course}}
+              <option value="{{_DATA_.result.course.id}}">[{{padLeft _DATA_.result.course.id 6}}] {{_DATA_.result.course.name}}</option>
+              {{/if}}
+            </select>
+          </div>
+          <div class="form-group">
+            <label>内容</label>
+            <div id="content-editor" style="width:100%; height: 300px;">{{{_DATA_.result.topicBody.content}}}</div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="panel panel-default" id='media-panel'>
+      <div class="panel-heading">
+        <div class="input-group">
+          <input type="text" class="form-control" name="assetName" placeholder="请输入文件名">
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" name="filterBtn"><em class="fa fa-search"></em></button>
+          </span>
+        </div>
+      </div>
+      <div class="panel-body pt0">
+        <div>
+          <ul class="nav nav-tabs">
+            <li name='IMAGE' class="active"><a href="javascript:;">图片</a></li>
+            <li name='AUDIO'><a href="javascript:;">音频</a></li>
+          </ul>
+          <div class="tab-content" style="min-height:494px">
+            <div role="tabpanel" class="tab-pane active" id="pictures">
+              <div class="media-list">
+                
+              </div>
+              <div class="col-md-12 text-center pt-lg" id='pagination-container'></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,145 @@
+{{#block "vendor_js"}}
+<script type="text/html" id='detail-tpl'>
+  <div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="detailLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="loader" style="display: none;">
+        <div class="whirl traditional"></div>
+      </div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times;</button>
+          <h4 class="modal-title" id="detailLabel">...</h4>
+        </div>
+        <div class="modal-body">
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>
+{{/block}}
+
+<script>console.log({{{json}}})</script>
+<div class="content-heading">
+  <div class="pull-right">
+    <a href="/topic/create" class="btn btn-sm btn-primary">创建知识点</a>
+  </div>
+  <ol class="breadcrumb">
+    <li>
+      <span>管理</span>
+    </li>
+    <li class="active">
+      <span>知识点管理</span>
+    </li>
+  </ol>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class='panel panel-default panel-search' data-js-comp="component/common/search_panel">
+      <div class="panel-body">
+        <form id="search-form" class="form-inline">
+          <table>
+            <tr>
+              <td class="search-label">
+                名称：
+              </td>
+              <td>
+                <input type="text" class="form-control input-sm" name="name" placeholder="请输入" value="{{likeQuery _QUERY_.filter.name}}">
+              </td>
+              <td class="search-label">
+                作者：
+              </td>
+              <td>
+                <select name="authorId" class="form-control input-sm"></select>
+              </td>
+              <td class="search-label">
+                所属课程：
+              </td>
+              <td>
+                <select name="courseId" class="form-control input-sm"></select>
+              </td>
+              <td width="100%">
+                &nbsp;
+              </td>
+              <td>
+                <button type="submit" class="btn btn-primary btn-outline">搜索</button>
+              </td>
+              <td>
+                <button type="reset" class="btn btn-default ml">重置</button>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+    
+    <input type="hidden" data-js-comp="component/topic/detail">
+    <input type="hidden" data-js-comp="component/topic/delete">
+
+    <div class="panel panel-default" data-auto-height='45'>
+      <div class="panel-body p0">
+        <div class="row">
+          <div class="col-md-12" style="min-height: 300px;">
+            <table class='table tabel-striped'>
+              <thead>
+              <tr>
+                <th class="text-left">编号</th>
+                <th class="text-left">名称</th>
+                <th class="text-center">作者</th>
+                <th class="text-center">所属课程</th>
+                <th class="text-center">所属学校</th>
+                <th class="text-center">所属专业</th>
+                <th class="text-center">创建时间</th>
+                <th class="text-center">修改时间</th>
+                <th class="text-right">操作</th>
+              </tr>
+              </thead>
+              <tbody>
+              {{#unless _DATA_.result}}
+                <tr><td colspan="9" class="text-muted text-center">找不到数据（T T）</td></tr>
+              {{else}}
+                {{#each _DATA_.result}}
+                  <tr data-id="{{{id}}}">
+                    <td class="text-left" width="64">
+                      <a href="javascript:;" title="点击查看详情" name="detailBtn">{{padLeft id 6}}</a>
+                    </td>
+                    <td class="text-left">
+                      {{name}}
+                    </td>
+                    <td class="text-center">
+                      {{author.name}}
+                    </td>
+                    <td class="text-center">
+                      {{course.name}}
+                    </td>
+                    <td class="text-center">
+                      {{course.speciality.school.name}}
+                    </td>
+                    <td class="text-center">
+                      {{course.speciality.name}}
+                    </td>
+                    <td class="text-center">
+                      <small class="text-muted">{{date createdAt "yyyy-MM-dd HH:mm:ss"}}</small>
+                    </td>
+                    <td class="text-center">
+                      <small class="text-muted">{{date updatedAt "yyyy-MM-dd HH:mm:ss"}}</small>
+                    </td>
+                    <td class="text-right">
+                      <a href="/topic/modify/{{{id}}}" name="modifyBtn">修改</a>
+                      <a href="javascript:;" name="deleteBtn">删除</a>
+                    </td>
+                  </tr>
+                {{/each}}
+              {{/unless}}
+              </tbody>
+            </table>
+            {{> pagination}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
