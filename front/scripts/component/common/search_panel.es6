@@ -39,7 +39,7 @@
     }
   });
 
-  var modelNames = ['school', 'speciality', 'course', 'author'];
+  var modelNames = ['school', 'speciality', 'course', 'author', 'user'];
 
   modelNames.forEach((modelName) => {
     if($(`[name=${modelName}Id]`).length > 0) initSelect2(modelName);

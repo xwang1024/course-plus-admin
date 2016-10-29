@@ -28,7 +28,7 @@
             results: data.result.map((row) => {
               var result = {
                 id: row.id,
-                text: `[${window['padLeft'](row.id, 6)}] ${row.name}`
+                text: `[${window['padLeft'](row.id, 6)}] ${row.name || row.nickname}`
               }
               return result;
             })

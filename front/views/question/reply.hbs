@@ -10,17 +10,18 @@
 
 <div class="content-heading">
   <div class="pull-right">
-    <button type="button" class="btn btn-sm btn-primary" name="submitBtn" data-js-comp="component/topic/modify">提交</button>
+    <button type="button" class="btn btn-sm btn-default" name="stashBtn">暂存</button>
+    <button type="button" class="btn btn-sm btn-primary" name="submitBtn" data-js-comp="component/question/reply">寄送邮件</button>
   </div>
   <ol class="breadcrumb">
     <li>
       <span>管理</span>
     </li>
     <li>
-      <a href="/topic">知识点管理</a>
+      <a href="/question">提问管理</a>
     </li>
     <li class="active">
-      <span>修改知识点</span>
+      <span>问题回复</span>
     </li>
   </ol>
 </div>
@@ -33,28 +34,24 @@
       <form id='topic-form'>
         <div class="panel-body">
           <div class="form-group">
-            <label>名称</label>
-            <input type="text" name='name' placeholder="请输入名称" class="form-control" value="{{_DATA_.result.name}}" required>
+            <label>提问者</label>
+            <input type="text" class="form-control" value="{{_DATA_.result.user.nickname}}" readonly>
           </div>
           <div class="form-group">
-            <label>作者</label>
-            <select name="authorId" class="form-control" required>
-              {{#if _DATA_.result.author}}
-              <option value="{{_DATA_.result.author.id}}">[{{padLeft _DATA_.result.author.id 6}}] {{_DATA_.result.author.name}}</option>
-              {{/if}}
-            </select>
+            <label>问题详情</label>
+            <textarea type="text" class="form-control" style="max-width: 100%;" readonly>{{_DATA_.result.content}}</textarea>
           </div>
           <div class="form-group">
-            <label>课程</label>
-            <select name="courseId" class="form-control" required>
-              {{#if _DATA_.result.course}}
-              <option value="{{_DATA_.result.course.id}}">[{{padLeft _DATA_.result.course.id 6}}] {{_DATA_.result.course.name}}</option>
-              {{/if}}
-            </select>
+            <label>目的邮箱</label>
+            <input type="text" class="form-control" value="{{_DATA_.result.userEmail}}" readonly>
           </div>
           <div class="form-group">
-            <label>内容</label>
-            <div id="content-editor" style="width:100%; height: 300px;">{{{_DATA_.result.topicBody.content}}}</div>
+            <label>邮件标题</label>
+            <input type="text" class="form-control" value="大神“{{_DATA_.result.topic.author.name}}”对您提出问题的回复" readonly>
+          </div>
+          <div class="form-group">
+            <label>邮件正文</label>
+            <div id="content-editor" style="width:100%; height: 300px;">{{{_DATA_.result.replyContent}}}</div>
           </div>
         </div>
       </form>
