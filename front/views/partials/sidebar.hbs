@@ -80,7 +80,7 @@
       <li>
       {{/startsWith}}
         <a href="/attachment" title="附件管理">
-          <em class="fa fa-mortar-board"></em>
+          <em class="fa fa-folder"></em>
           <span>附件管理</span>
         </a>
       </li>
@@ -93,6 +93,28 @@
         <a href="/author" title="作者管理">
           <em class="fa fa-mortar-board"></em>
           <span>作者管理</span>
+        </a>
+      </li>
+
+      {{#startsWith _PATH_ "/question"}}
+      <li class="active">
+      {{else}}
+      <li>
+      {{/startsWith}}
+        <a href="/question" title="提问管理">
+          <em class="fa fa-question-circle"></em>
+          <span>提问管理</span>
+        </a>
+      </li>
+
+      {{#startsWith _PATH_ "/feedback"}}
+      <li class="active">
+      {{else}}
+      <li>
+      {{/startsWith}}
+        <a href="/feedback" title="意见管理">
+          <em class="fa fa-tty"></em>
+          <span>意见管理</span>
         </a>
       </li>
 
