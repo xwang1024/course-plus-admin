@@ -68,7 +68,8 @@
         },
         page: page,
         pageSize: pageSize,
-        tags: $('[name=searchTags]').val()
+        tags: $('[name=searchTags]').val(),
+        order: 'createdAt DESC',
       },
       dataType: 'json',
       contentType: 'application/json',

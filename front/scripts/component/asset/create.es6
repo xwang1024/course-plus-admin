@@ -86,7 +86,12 @@
                     type : "success"
                   },
                   function () {
-                    location.reload();
+                    if(window.location.pathname.indexOf('/question/reply') < 0) {
+                      location.reload();
+                    } else {
+                      $('#create').modal('hide');
+                      $('[name=filterBtn]').trigger('click');
+                    }
                   });
               }
             }
