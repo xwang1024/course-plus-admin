@@ -67,8 +67,7 @@
               <td>
                 <select name="type" class="form-control input-sm">
                   <option value="">全部</option>
-                  <option value="IMAGE" 
-                  {{#equals _QUERY_.filter.type "IMAGE"}}selected{{/equals}}>图片</option>
+                  <option value="IMAGE" {{#equals _QUERY_.filter.type "IMAGE"}}selected{{/equals}}>图片</option>
                   <option value="AUDIO" {{#equals _QUERY_.filter.type "AUDIO"}}selected{{/equals}}>音频</option>
                 </select>
               </td>

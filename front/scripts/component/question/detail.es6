@@ -54,6 +54,11 @@
                 $(this).text(data.result[name]);
               }
             });
+            if(data.result.replyContent) {
+              $('#detail #reply-content-preview').html(data.result.replyContent);
+            } else {
+              $('#detail #reply-content-preview').html('<span class="text-muted">没有回复正文</span>');
+            }
             $('#detail #avatar-img').attr('src', data.result.topic.author.avatarUrl);
           }
         });

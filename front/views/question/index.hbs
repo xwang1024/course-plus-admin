@@ -34,7 +34,7 @@
                 </div>
               </form>
             </div>
-            <div class="col-md-12 ">
+            <div class="col-md-12">
               <h4 class="text-center text-muted mb-lg">请联系以下作者进行回答</h4>
               <form class="form-horizontal p-20">
                 <div class="form-group">
@@ -68,6 +68,12 @@
                   </div>
                 </div>
               </form>
+            </div>
+            <div class="col-md-12">
+              <h4 class="text-center text-muted mb-lg">回答邮件正文</h4>
+              <section id="reply-content-preview">
+                <span class="text-muted">没有回复正文</span>
+              </section>
             </div>
           </div>
         </div>
@@ -109,6 +115,17 @@
               </td>
               <td>
                 <select name="courseId" class="form-control input-sm"></select>
+              </td>
+              <td class="search-label">
+                状态：
+              </td>
+              <td>
+                <select name="replyStatus" class="form-control input-sm">
+                  <option value="">全部</option>
+                  <option value="NOT_SENT" {{#equals _QUERY_.filter.replyStatus "NOT_SENT"}}selected{{/equals}}>未回答</option>
+                  <option value="SUCCEED" {{#equals _QUERY_.filter.replyStatus "SUCCEED"}}selected{{/equals}}>回答成功</option>
+                  <option value="FAILED" {{#equals _QUERY_.filter.replyStatus "FAILED"}}selected{{/equals}}>寄送失败</option>
+                </select>
               </td>
               <td width="100%">
                 &nbsp;
@@ -187,9 +204,6 @@
                       <a href="javascript:;" title="点击查看详情" name="detailBtn">详情</a>
                       {{#equals replyStatus 'NOT_SENT'}}
                       <a href="/question/reply/{{{id}}}" name="modifyBtn">回答</a>
-                      {{/equals}}
-                      {{#equals replyStatus 'SUCCESS'}}
-                      <span class="label label-green">{{translate replyStatus}}</span>
                       {{/equals}}
                       {{#equals replyStatus 'FAILED'}}
                       <a href="/question/reply/{{{id}}}" name="modifyBtn">重试</a>
