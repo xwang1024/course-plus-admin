@@ -25,7 +25,7 @@ qiniu.conf.ACCESS_KEY = config.qiniu.ACCESS_KEY;
 qiniu.conf.SECRET_KEY = config.qiniu.SECRET_KEY;
 app.qiniu = qiniu;
 // 初始化数据库
-var sequelize = new Sequelize(app.config.mysql.url);
+var sequelize = new Sequelize(app.config.mysql.url, { logging: false });
 app.db = sequelize;
 
 // view engine setup
