@@ -13,10 +13,11 @@
         data: function (params) {
           var query = {};
           if(params.term) {
-            query['filter'] = {
-              name: {
-                $like: `%${params.term}%`
-              }
+            query['filter'] = {};
+            if(modelName === 'user') {
+              query['filter']['nickName'] = { $like: `%${params.term}%` };
+            } else {
+              query['filter']['name'] = { $like: `%${params.term}%` };
             }
           }
           query['page'] = params.page;

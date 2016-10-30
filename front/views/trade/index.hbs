@@ -1,0 +1,162 @@
+{{#block "vendor_js"}}
+{{/block}}
+
+<script>console.log({{{json}}})</script>
+<div class="content-heading">
+  <ol class="breadcrumb">
+    <li>
+      <span>管理</span>
+    </li>
+    <li class="active">
+      <span>订单管理</span>
+    </li>
+  </ol>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class='panel panel-default panel-search' data-js-comp="component/common/search_panel">
+      <div class="panel-body">
+        <form id="search-form" class="form-inline">
+          <table>
+            <tr>
+              <td class="search-label">
+                用户：
+              </td>
+              <td>
+                <select name="userId" class="form-control input-sm"></select>
+              </td>
+              <td class="search-label">
+                附件：
+              </td>
+              <td>
+                <select name="attachmentId" class="form-control input-sm"></select>
+              </td>
+              <td class="search-label">
+                知识点：
+              </td>
+              <td>
+                <select name="topicId" class="form-control input-sm"></select>
+              </td>
+              <td width="100%">
+                &nbsp;
+              </td>
+              <td>
+                &nbsp;
+              </td>
+              <td>
+                &nbsp;
+              </td>
+            </tr>
+            <tr>
+              <td class="search-label">
+                订单号：
+              </td>
+              <td>
+                <input type="text" class="form-control input-sm" name="orderNo" placeholder="请输入精确订单号" value="{{likeQuery _QUERY_.filter.orderNo}}">
+              </td>
+              <td class="search-label">
+                状态：
+              </td>
+              <td>
+                <select name="orderStatus" class="form-control input-sm">
+                  <option value="">全部</option>
+                  <option value="0" {{#equals _QUERY_.filter.orderStatus "0"}}selected{{/equals}}>未支付</option>
+                  <option value="1" {{#equals _QUERY_.filter.orderStatus "1"}}selected{{/equals}}>已支付</option>
+                </select>
+              </td>
+              <td>
+                &nbsp;
+              </td>
+              <td>
+                &nbsp;
+              </td>
+              <td width="100%">
+                &nbsp;
+              </td>
+              <td>
+                <button type="submit" class="btn btn-primary btn-outline">搜索</button>
+              </td>
+              <td>
+                <button type="reset" class="btn btn-default ml">重置</button>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+
+    <input type="hidden" data-js-comp="component/school/modify">
+    <input type="hidden" data-js-comp="component/school/delete">
+
+    <div class="panel panel-default" data-auto-height='45'>
+      <div class="panel-body p0">
+        <div class="row">
+          <div class="col-md-12" style="min-height: 300px;">
+            <table class='table tabel-striped'>
+              <thead>
+              <tr>
+                <th class="text-left">订单号</th>
+                <th class="text-center">订单价格</th>
+                <th class="text-center">当前状态</th>
+                <th class="text-center">关联用户</th>
+                <th class="text-center">关联附件</th>
+                <th class="text-center">关联知识点</th>
+                <th class="text-center">创建时间</th>
+                <th class="text-right">修改时间</th>
+              </tr>
+              </thead>
+              <tbody>
+              {{#unless _DATA_.result}}
+                <tr><td colspan="9" class="text-muted text-center">找不到数据（T T）</td></tr>
+              {{else}}
+                {{#each _DATA_.result}}
+                  <tr data-id="{{{id}}}">
+                    <td class="text-left" width="64">
+                      {{orderNo}}
+                    </td>
+                    <td class="text-center">
+                      <span class="text-warning">￥{{price cost}}</span>
+                    </td>
+                    <td class="text-center">
+                      {{#equals orderStatus 0}}
+                      <span class="label label-danger">未支付</span>
+                      {{/equals}}
+                      {{#equals orderStatus 1}}
+                      <span class="label label-green">已支付</span>
+                      {{/equals}}
+                    </td>
+                    <td class="text-center">
+                      {{user.nickname}}
+                    </td>
+                    <td class="text-center">
+                      {{#if attachment}}
+                        {{attachment.name}}
+                      {{else}}
+                      -
+                      {{/if}}
+                    </td>
+                    <td class="text-center">
+                      {{#if topic}}
+                        {{topic.name}}
+                      {{else}}
+                      -
+                      {{/if}}
+                    </td>
+                    <td class="text-center">
+                      <small class="text-muted">{{date createdAt "yyyy-MM-dd HH:mm:ss"}}</small>
+                    </td>
+                    <td class="text-right">
+                      <small class="text-muted">{{date updatedAt "yyyy-MM-dd HH:mm:ss"}}</small>
+                    </td>
+                  </tr>
+                {{/each}}
+              {{/unless}}
+              </tbody>
+            </table>
+            {{> pagination}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

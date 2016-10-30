@@ -140,6 +140,17 @@
         </a>
       </li>
 
+      {{#startsWith _PATH_ "/trade"}}
+      <li class="active">
+      {{else}}
+      <li>
+      {{/startsWith}}
+        <a href="/trade" title="订单管理">
+          <em class="fa fa-money"></em>
+          <span>订单管理</span>
+        </a>
+      </li>
+
       {{#startsWith _PATH_ "/admin"}}
       <li class="active">
       {{else}}
