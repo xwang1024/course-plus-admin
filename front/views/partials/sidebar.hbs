@@ -96,28 +96,6 @@
         </a>
       </li>
 
-      {{#startsWith _PATH_ "/question"}}
-      <li class="active">
-      {{else}}
-      <li>
-      {{/startsWith}}
-        <a href="/question" title="提问管理">
-          <em class="fa fa-question-circle"></em>
-          <span>提问管理</span>
-        </a>
-      </li>
-
-      {{#startsWith _PATH_ "/feedback"}}
-      <li class="active">
-      {{else}}
-      <li>
-      {{/startsWith}}
-        <a href="/feedback" title="意见管理">
-          <em class="fa fa-tty"></em>
-          <span>意见管理</span>
-        </a>
-      </li>
-
       <!--{{#startsWith _PATH_ "/comment"}}
       <li class="active">
       {{else}}
@@ -137,6 +115,28 @@
         <a href="/asset" title="素材管理">
           <em class="fa fa-cloud"></em>
           <span>素材管理</span>
+        </a>
+      </li>
+
+      {{#startsWith _PATH_ "/question"}}
+      <li class="active">
+      {{else}}
+      <li>
+      {{/startsWith}}
+        <a href="/question" title="提问管理">
+          <em class="fa fa-question-circle"></em>
+          <span>提问管理</span>
+        </a>
+      </li>
+
+      {{#startsWith _PATH_ "/feedback"}}
+      <li class="active">
+      {{else}}
+      <li>
+      {{/startsWith}}
+        <a href="/feedback" title="意见管理">
+          <em class="fa fa-tty"></em>
+          <span>意见管理</span>
         </a>
       </li>
 
