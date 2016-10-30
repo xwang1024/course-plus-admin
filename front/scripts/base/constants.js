@@ -26,7 +26,7 @@
   };
 
   window.QiniuConfig = {
-    'domain': 'ofjhruj62.bkt.clouddn.com'
+    'domain': ''
   };
 })(window, document, window.jQuery);
 

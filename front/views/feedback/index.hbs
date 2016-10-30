@@ -8,13 +8,21 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times;</button>
-          <h4 class="modal-title" id="modifyLabel">修改学校</h4>
+          <h4 class="modal-title" id="modifyLabel">处理意见</h4>
         </div>
-        <form id='school-form'>
+        <form id='feedback-form'>
           <div class="modal-body">
             <div class="form-group">
-              <label>学校名称</label>
-              <input type="text" name='name' placeholder="请输入学校名称" class="form-control" required>
+              <label>处理结果</label>
+              <select name="status" class="form-control input-sm">
+                <option value="0">未处理</option>
+                <option value="1">已解决</option>
+                <option value="-1">无法解决</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>备注</label>
+              <textarea placeholder="请输入备注" class="form-control" style="height: 100px; resize: none;" name="remark"></textarea>
             </div>
           </div>
           <div class="modal-footer">
@@ -52,6 +60,17 @@
               <td>
                 <select name="userId" class="form-control input-sm"></select>
               </td>
+              <td class="search-label">
+                状态：
+              </td>
+              <td>
+                <select name="status" class="form-control input-sm">
+                  <option value="">全部</option>
+                  <option value="0" {{#equals _QUERY_.filter.status "0"}}selected{{/equals}}>未处理</option>
+                  <option value="1" {{#equals _QUERY_.filter.status "1"}}selected{{/equals}}>已解决</option>
+                  <option value="-1" {{#equals _QUERY_.filter.status "-1"}}selected{{/equals}}>无法解决</option>
+                </select>
+              </td>
               <td width="100%">
                 &nbsp;
               </td>
@@ -67,7 +86,7 @@
       </div>
     </div>
 
-    <input type="hidden" data-js-comp="component/feedback/resolve">
+    <input type="hidden" data-js-comp="component/feedback/modify">
 
     <div class="panel panel-default" data-auto-height='45'>
       <div class="panel-body p0">
@@ -80,6 +99,7 @@
                 <th class="text-left">用户信息</th>
                 <th class="text-left">订单信息</th>
                 <th class="text-left">反馈内容</th>
+                <th class="text-center">状态</th>
                 <th class="text-center">创建时间</th>
                 <th class="text-center">处理时间</th>
                 <th class="text-right">操作</th>
@@ -87,7 +107,7 @@
               </thead>
               <tbody>
               {{#unless _DATA_.result}}
-                <tr><td colspan="6" class="text-muted text-center">找不到数据（T T）</td></tr>
+                <tr><td colspan="7" class="text-muted text-center">找不到数据（T T）</td></tr>
               {{else}}
                 {{#each _DATA_.result}}
                   <tr data-id="{{{id}}}">
@@ -107,6 +127,17 @@
                     <td class="text-left">
                       <small>{{content}}</small>
                     </td>
+                    <td class="text-center" width="80">
+                      {{#equals status -1}}
+                      <span class="label label-danger" title="{{remark}}">无法解决</span>
+                      {{/equals}}
+                      {{#equals status 0}}
+                      <span class="label label-default" title="{{remark}}">未解决</span>
+                      {{/equals}}
+                      {{#equals status 1}}
+                      <span class="label label-green" title="{{remark}}">已解决</span>
+                      {{/equals}}
+                    </td>
                     <td class="text-center" width="100">
                       <small class="text-muted">{{date createdAt "yyyy-MM-dd HH:mm:ss"}}</small>
                     </td>
@@ -118,7 +149,7 @@
                       {{/equals}}
                     </td>
                     <td class="text-right" width="80">
-                      <a href="javascript:;" name="resolveBtn">处理</a>
+                      <a href="javascript:;" name="modifyBtn">处理</a>
                     </td>
                   </tr>
                 {{/each}}
