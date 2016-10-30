@@ -1,31 +1,4 @@
 {{#block "vendor_js"}}
-<script type="text/html" id='create-tpl'>
-  <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="createLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="loader" style="display: none;">
-        <div class="whirl traditional"></div>
-      </div>
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times;</button>
-          <h4 class="modal-title" id="createLabel">创建学校</h4>
-        </div>
-        <form id='school-form'>
-          <div class="modal-body">
-            <div class="form-group">
-              <label>学校名称</label>
-              <input type="text" name='name' placeholder="请输入学校名称" class="form-control" required>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" name='submitBtn'>提交</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</script>
 <script type="text/html" id='modify-tpl'>
   <div class="modal fade" id="modify" tabindex="-1" role="dialog" aria-labelledby="modifyLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -57,15 +30,12 @@
 
 <script>console.log({{{json}}})</script>
 <div class="content-heading">
-  <div class="pull-right">
-    <button type="button" class="btn btn-sm btn-primary" name='createBtn' data-js-comp="component/school/create">创建学校</button>
-  </div>
   <ol class="breadcrumb">
     <li>
       <span>管理</span>
     </li>
     <li class="active">
-      <span>学校管理</span>
+      <span>意见管理</span>
     </li>
   </ol>
 </div>
@@ -77,10 +47,10 @@
           <table>
             <tr>
               <td class="search-label">
-                学校名称：
+                用户：
               </td>
               <td>
-                <input type="text" class="form-control input-sm" name="name" placeholder="请输入" value="{{likeQuery _QUERY_.filter.name}}">
+                <select name="userId" class="form-control input-sm"></select>
               </td>
               <td width="100%">
                 &nbsp;
@@ -97,8 +67,7 @@
       </div>
     </div>
 
-    <input type="hidden" data-js-comp="component/school/modify">
-    <input type="hidden" data-js-comp="component/school/delete">
+    <input type="hidden" data-js-comp="component/feedback/resolve">
 
     <div class="panel panel-default" data-auto-height='45'>
       <div class="panel-body p0">
@@ -108,10 +77,12 @@
               <thead>
               <tr>
                 <th class="text-left">编号</th>
-                <th class="text-left">学校名称</th>
-                <th class="text-center">专业数量</th>
+                <th class="text-left">用户昵称</th>
+                <th class="text-left">用户手机</th>
+                <th class="text-center">订单号</th>
+                <th class="text-center">意见内容</th>
                 <th class="text-center">创建时间</th>
-                <th class="text-center">修改时间</th>
+                <th class="text-center">处理时间</th>
                 <th class="text-right">操作</th>
               </tr>
               </thead>
@@ -125,20 +96,26 @@
                       {{padLeft id 6}}
                     </td>
                     <td class="text-left">
-                      {{name}}
+                      {{user.nickName}}
                     </td>
                     <td class="text-center">
-                      {{specialityCount}}
+                      {{user.phone}}
+                    </td>
+                    <td class="text-center" width="64">
+                      {{padLeft tradeId 6}}
                     </td>
                     <td class="text-center">
                       <small class="text-muted">{{date createdAt "yyyy-MM-dd HH:mm:ss"}}</small>
                     </td>
                     <td class="text-center">
+                      {{#equals updatedAt createdAt}}
+                      -
+                      {{else}}
                       <small class="text-muted">{{date updatedAt "yyyy-MM-dd HH:mm:ss"}}</small>
+                      {{/equals}}
                     </td>
                     <td class="text-right">
-                      <a href="javascript:;" name="modifyBtn">修改</a>
-                      <a href="javascript:;" name="deleteBtn">删除</a>
+                      <a href="javascript:;" name="resolveBtn">处理</a>
                     </td>
                   </tr>
                 {{/each}}
