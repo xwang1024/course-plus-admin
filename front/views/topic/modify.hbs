@@ -1,9 +1,12 @@
-{{#block "vendor_js"}}
+{{#block "vendor_css"}}
 <link rel="stylesheet" type="text/css" href="/vendor/wangEditor/dist/css/wangEditor.min.css">
 {{/block}}
 
 {{#block "vendor_js"}}
 <script src="/vendor/wangEditor/dist/js/wangEditor.min.js"></script>
+<script src="/vendor/plupload/js/plupload.full.min.js"></script>
+<script src="/vendor/qiniu/dist/qiniu.min.js"></script>
+{{> create-asset-modal}}
 {{/block}}
 
 <script>console.log({{{json}}})</script>
@@ -61,6 +64,8 @@
     </div>
   </div>
   <div class="col-md-4">
+    <button type="button" class="btn btn-sm btn-green mb-lg" name='createBtn' style="width: 100%; height: 52px;" data-js-comp="component/asset/create">上传素材</button>
+    
     <div class="panel panel-default" id='media-panel'>
       <div class="panel-heading">
         <div class="input-group">
